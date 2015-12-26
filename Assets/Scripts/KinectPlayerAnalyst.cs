@@ -11,6 +11,7 @@ public class KinectPlayerAnalyst : MonoBehaviour
         get { return playerOffset; }
         set { playerOffset = value; }
     }
+    int playerCount = 0;
 	// Use this for initialization
 	void Start () {
 	

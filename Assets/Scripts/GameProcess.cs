@@ -31,17 +31,35 @@ public class GameProcess : MonoBehaviour
     private void MakeFSM()
     {
 
-        ButterFlyState butter = new ButterFlyState(this);
+        
+
 
         LenovoModelRotationState lenovo = new LenovoModelRotationState(this);
+        lenovo.AddTransition(StateID.ButterFly);
+        lenovo.AddTransition(StateID.ModelControl);
+
+        ButterFlyState butter = new ButterFlyState(this);
+        butter.AddTransition(StateID.LenovoModelRotation);
+
         ModelControlState model = new ModelControlState(this);
+        model.AddTransition(StateID.PlayerTakePicture);
+
+
         PlayerTakePictureState takePicture = new PlayerTakePictureState(this);
+        takePicture.AddTransition(StateID.ButterFly);
+ 
+
+
 
         fsm = new FSMSystem();
+        fsm.AddState(model);
+
         fsm.AddState(butter);
         fsm.AddState(lenovo);
-        fsm.AddState(model);
+        
         fsm.AddState(takePicture);
+
+
     }
     // Update is called once per frame
     void Update()

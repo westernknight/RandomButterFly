@@ -12,7 +12,8 @@ public class ModelControlState : FSMState
 
     public override void DoBeforeEntering()
     {
-        
+        Debug.Log("ModelControlState DoBeforeEntering");
+        //create models; to prepare
     }
   
     public override void DoBeforeLeaving()

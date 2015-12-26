@@ -424,6 +424,144 @@ public class AvatarController : MonoBehaviour
 
 		return newPosition;
 	}
-	
+	#if UNITY_EDITOR
+	public void AutoDetectReferences()
+    {
+        DetectReferencesByNaming();
+    }
+    void DetectReferencesByNaming()
+    {
+        Transform[] children = transform.GetComponentsInChildren<Transform>();
+        DetectLimb(AvatarNaming.BoneType.Arm, AvatarNaming.BoneSide.Left, ref ShoulderLeft, ref ElbowLeft, ref HandLeft, children);
+        DetectLimb(AvatarNaming.BoneType.Arm, AvatarNaming.BoneSide.Right, ref ShoulderRight, ref ElbowRight, ref HandRight, children);
+        DetectLimb(AvatarNaming.BoneType.Leg, AvatarNaming.BoneSide.Left, ref HipLeft, ref KneeLeft, ref FootLeft, children);
+        DetectLimb(AvatarNaming.BoneType.Leg, AvatarNaming.BoneSide.Right, ref HipRight, ref KneeRight, ref FootRight, children);
+
+        if (FootLeft && FootLeft.childCount > 0)
+       {
+           ToesLeft = FootLeft.GetChild(0);
+       }
+        if (FootRight && FootRight.childCount > 0)
+       {
+           ToesRight = FootRight.GetChild(0);
+       }
+        Head = AvatarNaming.GetBone(children, AvatarNaming.BoneType.Head);
+
+        HipCenter = AvatarNaming.GetNamingMatch(children, AvatarNaming.pelvis);
+
+        // If pelvis is not an ancestor of a leg, it is not a valid pelvis
+        if (HipCenter == null || !AvatarHierarchy.IsAncestor(HipLeft, HipCenter))
+        {
+            Debug.Log("pelvis is not an ancestor of a leg, it is not a valid pelvis");
+        }
+
+        ShoulderCenter = GetSameParent(ShoulderLeft, ShoulderRight);
+        if (ShoulderCenter.parent != HipCenter)
+        {
+            Spine = ShoulderCenter.parent;
+        }
+        else
+        {
+            Spine = ShoulderCenter;
+            ShoulderCenter = null;
+        }
+        ClavicleLeft = GetParentBeforeSameParent(ShoulderLeft, ShoulderRight);
+        ClavicleRight = GetParentBeforeSameParent(ShoulderRight, ShoulderLeft);
+
+        if (Head.parent != HipCenter && Head.parent != Spine && Head.parent != ShoulderCenter)
+        {
+            Neck = Head.parent;
+        }
+      
+    }
+
+    private static void DetectLimb(AvatarNaming.BoneType boneType, AvatarNaming.BoneSide boneSide, ref Transform firstBone, ref Transform secondBone, ref Transform lastBone, Transform[] transforms)
+    {
+        Transform[] limb = AvatarNaming.GetBonesOfTypeAndSide(boneType, boneSide, transforms);
+
+        if (limb.Length < 3)
+        {
+            //Warning.Log("Unable to detect biped bones by bone names. Please manually assign bone references.", firstBone, true);
+            return;
+        }
+
+        // Standard biped characters
+        if (limb.Length == 3)
+        {
+            firstBone = limb[0];
+            secondBone = limb[1];
+            lastBone = limb[2];
+        }
+
+        // For Bootcamp soldier type of characters with more than 3 limb bones
+        if (limb.Length > 3)
+        {
+            firstBone = limb[0];
+            secondBone = limb[2];
+            lastBone = limb[limb.Length - 1];
+        }
+    }
+
+    ///////////////
+    Transform GetSameParent(Transform t1, Transform t2)
+    {
+        List<Transform> t1Parents = new List<Transform>();
+        List<Transform> t2Parents = new List<Transform>();
+        Transform tmp1 = t1;
+        while (tmp1 != null)
+        {
+            t1Parents.Add(tmp1);
+            tmp1 = tmp1.parent;
+        }
+        Transform tmp2 = t2;
+        while (tmp2 != null)
+        {
+            t2Parents.Add(tmp2);
+            tmp2 = tmp2.parent;
+        }
+
+        for (int i = 0; i < t1Parents.Count; i++)
+        {
+            for (int j = 0; j < t2Parents.Count; j++)
+            {
+                if (t1Parents[i] == t2Parents[j])
+                {
+                    return t1Parents[i];
+                }
+            }
+        }
+
+        return null;
+    }
+    Transform GetParentBeforeSameParent(Transform t1, Transform t2)
+    {
+        List<Transform> t1Parents = new List<Transform>();
+        List<Transform> t2Parents = new List<Transform>();
+        Transform tmp1 = t1;
+        while (tmp1 != null)
+        {
+            t1Parents.Add(tmp1);
+            tmp1 = tmp1.parent;
+        }
+        Transform tmp2 = t2;
+        while (tmp2 != null)
+        {
+            t2Parents.Add(tmp2);
+            tmp2 = tmp2.parent;
+        }
+
+        for (int i = 0; i + 1 < t1Parents.Count; i++)
+        {
+            for (int j = 0; j < t2Parents.Count; j++)
+            {
+                if (t1Parents[i + 1] == t2Parents[j])
+                {
+                    return t1Parents[i];
+                }
+            }
+        }
+        return null;
+    }
+	#endif
 }
 
