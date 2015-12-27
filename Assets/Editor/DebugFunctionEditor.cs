@@ -7,6 +7,9 @@ using RootMotion.FinalIK;
 public class DebugFunctionEditor : EditorWindow
 {
     Vector2 globalScrollPosition;
+
+    GameObject rot1;
+    GameObject rot2;
     [MenuItem("Debug/功能调试 ")]
     static void Init()
     {
@@ -21,8 +24,8 @@ public class DebugFunctionEditor : EditorWindow
 
         if (GUILayout.Button("Print VecToStr"))
         {
-            Debug.Log(GlobalStructure.Vector3ToString(Vector3.right));
-            Debug.Log(GlobalStructure.StringToVector3("50.3 23.5 24"));
+            Debug.Log(Utility.Vector3ToString(Vector3.right));
+            Debug.Log(Utility.StringToVector3("50.3,23.5,24"));
         }
         if (GUILayout.Button("print LeftHand"))
         {
@@ -40,6 +43,18 @@ public class DebugFunctionEditor : EditorWindow
         {
             FullBodyBipedIK ik = GameObject.Find("Robot Kyle").GetComponent<FullBodyBipedIK>();
             ik.solver.GetEffector(FullBodyBipedEffector.LeftHand).positionWeight = 0;
+        }
+
+        rot1 = EditorGUILayout.ObjectField(rot1, typeof(GameObject)) as GameObject;
+
+        rot2= EditorGUILayout.ObjectField(rot2, typeof(GameObject)) as GameObject;
+
+        if (GUILayout.Button("set rot1 = rot2"))
+        {
+            if (rot1!=null&&rot2!=null)
+            {
+                rot1.transform.rotation = rot2.transform.rotation;
+            }
         }
 
         GUILayout.EndScrollView();

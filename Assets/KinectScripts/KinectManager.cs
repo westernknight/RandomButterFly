@@ -1059,6 +1059,8 @@ public class KinectManager : MonoBehaviour
 			// Initialize color map related stuff
 			usersClrTex = new Texture2D(sensorData.colorImageWidth, sensorData.colorImageHeight, TextureFormat.RGBA32, false);
 	        usersClrRect = new Rect(cameraRect.width - cameraRect.width * MapsPercentWidth, cameraRect.height, cameraRect.width * MapsPercentWidth, -cameraRect.height * MapsPercentHeight);
+
+
 			usersClrSize = sensorData.colorImageWidth * sensorData.colorImageHeight;
 			
 			if(computeUserMap && displayColorMap)

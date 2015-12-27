@@ -7,8 +7,7 @@ using RootMotion.FinalIK;
 public class IKController : MonoBehaviour
 {
 
-    //public bool MoveVertically = false;
-    public bool MirroredMovement = false;
+   
 
     public GameObject Hip_Center;
     public GameObject Spine;
@@ -51,6 +50,8 @@ public class IKController : MonoBehaviour
     private bool OffsetCalibrated = false;
     public float SmoothFactor = 10.0f;
     public bool VerticalMovement = false;
+    //public bool MoveVertically = false;
+    public bool MirroredMovement = false;
     FullBodyBipedIK ik;
     void Start()
     {

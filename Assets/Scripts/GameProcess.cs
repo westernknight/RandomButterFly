@@ -4,6 +4,8 @@
 
 using UnityEngine;
 using System.Collections;
+using System.IO;
+using UnityEngine.UI;
 
 public class GameProcess : MonoBehaviour
 {
@@ -19,52 +21,112 @@ public class GameProcess : MonoBehaviour
     /// 
     /// </summary>
 
-    FSMSystem fsm;
+    public FSMSystem fsm;
+
+    public LenovoModelRotationState lenovo;
+    public ButterFlyState butter;
+    public ModelControlState model;
+    public PlayerTakePictureState takePicture;
+
+
     public GameObject player;
 
+    public GlobalStructure config = new GlobalStructure();
+
+    public Image lenovoBkImage;
+    Texture butterflyStateBk;
     // Use this for initialization
     void Start()
     {
+        FileInfo fi = new FileInfo(Path.Combine(Application.streamingAssetsPath, "config.json"));
+        if (fi.Exists)
+        {
+            StreamReader sr = new StreamReader(fi.OpenRead());
+            try
+            {
+                config = LitJson.JsonMapper.ToObject<GlobalStructure>(sr.ReadLine());
+            }
+            catch (System.Exception ex)
+            {
+                Debug.Log(ex);
+            }
+            if (sr != null)
+            {
+                sr.Close();
+            }
+        }
+        else
+        {
+            StreamWriter sw = new StreamWriter(fi.Create());
+            if (sw != null)
+            {
+                sw.Write(LitJson.JsonMapper.ToJson(config));
+                sw.Close();
+            }
+
+        }
+        Debug.Log(LitJson.JsonMapper.ToJson(config));
+        InitParam();
         MakeFSM();
     }
     public void SetTransition(StateID t) { fsm.PerformTransition(t); }
+    private void InitParam()
+    {
+        //to do
+        //lenovoBkImage = GameObject.Find("lenovoBkImage").GetComponent<Image>();
+    }
     private void MakeFSM()
     {
 
-        
-
-
-        LenovoModelRotationState lenovo = new LenovoModelRotationState(this);
+        lenovo = new LenovoModelRotationState(this);
         lenovo.AddTransition(StateID.ButterFly);
         lenovo.AddTransition(StateID.ModelControl);
 
-        ButterFlyState butter = new ButterFlyState(this);
+        butter = new ButterFlyState(this);
         butter.AddTransition(StateID.LenovoModelRotation);
 
-        ModelControlState model = new ModelControlState(this);
+        model = new ModelControlState(this);
         model.AddTransition(StateID.PlayerTakePicture);
 
 
-        PlayerTakePictureState takePicture = new PlayerTakePictureState(this);
+        takePicture = new PlayerTakePictureState(this);
         takePicture.AddTransition(StateID.ButterFly);
- 
+
 
 
 
         fsm = new FSMSystem();
+        fsm.AddState(takePicture);
+        fsm.AddState(lenovo);
         fsm.AddState(model);
 
         fsm.AddState(butter);
-        fsm.AddState(lenovo);
-        
-        fsm.AddState(takePicture);
+
+
+       
 
 
     }
+
+    
     // Update is called once per frame
     void Update()
     {
-        fsm.CurrentState.Reason(player, gameObject);
-        fsm.CurrentState.Act(player, gameObject);
+        if (fsm != null)
+        {
+            fsm.CurrentState.Reason(player, gameObject);
+            fsm.CurrentState.Act(player, gameObject);
+        }
+
     }
+
+    void OnGUI()
+    {
+        if (fsm.CurrentStateID == StateID.PlayerTakePicture)
+        {
+            takePicture.OnGUI();
+        }
+       
+    }
+
 }

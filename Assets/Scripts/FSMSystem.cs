@@ -200,9 +200,9 @@ public class FSMSystem
         if (states.Count == 0)
         {
             states.Add(s);
-            currentState = s;
-            currentStateID = s.ID;
+            currentState = s;            
             currentState.DoBeforeEntering();
+            currentStateID = s.ID;
             return;
         }
 
@@ -263,10 +263,10 @@ public class FSMSystem
         }
 
         // Update the currentStateID and currentState		
-        currentStateID = id;
+        
         foreach (FSMState state in states)
         {
-            if (state.ID == currentStateID)
+            if (state.ID == id)
             {
                 // Do the post processing of the state before setting the new one
                 currentState.DoBeforeLeaving();
@@ -275,6 +275,7 @@ public class FSMSystem
 
                 // Reset the state to its desired condition before it can reason or act
                 currentState.DoBeforeEntering();
+                currentStateID = id;
                 break;
             }
         }
