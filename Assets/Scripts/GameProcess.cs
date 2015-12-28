@@ -9,7 +9,7 @@ using UnityEngine.UI;
 
 public class GameProcess : MonoBehaviour
 {
-
+    public static GameProcess instance;
     /// <summary>
     /// 电脑模型旋转  必须有一定时间
     /// 旋转切换
@@ -23,21 +23,53 @@ public class GameProcess : MonoBehaviour
 
     public FSMSystem fsm;
 
-    public LenovoModelRotationState lenovo;
-    public ButterFlyState butter;
-    public ModelControlState model;
-    public PlayerTakePictureState takePicture;
+    public LenovoModelRotationState lenovoModelRotationState;
+    public ButterFlyState butterFlyState;
+    public ModelControlState modelControlState;
+    public PlayerTakePictureState takePictureState;
 
 
-    public GameObject player;
+    GameObject player;
 
     public GlobalStructure config = new GlobalStructure();
-
+    public KinectInterop.SensorData sensorData = null;
+    /// <summary>
+    /// scene1
+    /// </summary>
     public Image lenovoBkImage;
+    public GameObject lenovoCumputer;
+
+
+    /// <summary>
+    /// scene2
+    /// </summary>
+    public Image butterFlyBkImage;
+    public GameObject butterFlyModelPrefab;
+
+
+    /// <summary>
+    /// scene3
+    /// </summary>
+    public Image kinectBkImage;
+    public GameObject playerModel1;
+
+    /// <summary>
+    /// scene4
+    /// </summary>
+    public Image takePictureImage;
+    
+
     Texture butterflyStateBk;
+    void Awake()
+    {
+        instance = this;
+    }
     // Use this for initialization
     void Start()
     {
+
+     
+
         FileInfo fi = new FileInfo(Path.Combine(Application.streamingAssetsPath, "config.json"));
         if (fi.Exists)
         {
@@ -66,9 +98,50 @@ public class GameProcess : MonoBehaviour
 
         }
         Debug.Log(LitJson.JsonMapper.ToJson(config));
+
+
+
         InitParam();
+        StartCoroutine(InitKinect());
+        
+    }
+    public void SaveConfig()
+    {
+        FileInfo fi = new FileInfo(Path.Combine(Application.streamingAssetsPath, "config.json"));
+        StreamWriter sw = new StreamWriter(fi.Create());
+        if (sw != null)
+        {
+            sw.Write(LitJson.JsonMapper.ToJson(config));
+            sw.Close();
+        }
+    }
+    IEnumerator InitKinect()
+    {
+        while (sensorData == null)
+        {
+            sensorData = KinectManager.Instance.sensorData;
+            yield return null;
+        }
+        
+        StartCoroutine(Shot());
         MakeFSM();
     }
+
+    IEnumerator Shot()
+    {
+        while (KinectInterop.PollColorFrame(sensorData) == false)
+        {
+            Debug.Log("yield return null");
+            yield return null;
+        }
+        Texture2D usersClrTex = new Texture2D(sensorData.colorImageWidth, sensorData.colorImageHeight, TextureFormat.RGBA32, false);
+
+        usersClrTex.LoadRawTextureData(sensorData.colorImage);
+        usersClrTex.Apply();
+        kinectBkImage.overrideSprite = Sprite.Create(usersClrTex, new Rect(0, 0, usersClrTex.width, usersClrTex.height), new Vector2(0.5f, 0.5f));
+
+    }
+
     public void SetTransition(StateID t) { fsm.PerformTransition(t); }
     private void InitParam()
     {
@@ -78,37 +151,40 @@ public class GameProcess : MonoBehaviour
     private void MakeFSM()
     {
 
-        lenovo = new LenovoModelRotationState(this);
-        lenovo.AddTransition(StateID.ButterFly);
-        lenovo.AddTransition(StateID.ModelControl);
+        lenovoModelRotationState = new LenovoModelRotationState(this);
+        lenovoModelRotationState.AddTransition(StateID.ButterFly);
+        lenovoModelRotationState.AddTransition(StateID.ModelControl);
 
-        butter = new ButterFlyState(this);
-        butter.AddTransition(StateID.LenovoModelRotation);
-
-        model = new ModelControlState(this);
-        model.AddTransition(StateID.PlayerTakePicture);
+        butterFlyState = new ButterFlyState(this);
+        butterFlyState.AddTransition(StateID.LenovoModelRotation);
+        butterFlyState.AddTransition(StateID.ModelControl);
 
 
-        takePicture = new PlayerTakePictureState(this);
-        takePicture.AddTransition(StateID.ButterFly);
+        modelControlState = new ModelControlState(this);
+        modelControlState.AddTransition(StateID.PlayerTakePicture);
+
+
+        takePictureState = new PlayerTakePictureState(this);
+        takePictureState.AddTransition(StateID.ButterFly);
 
 
 
 
         fsm = new FSMSystem();
-        fsm.AddState(takePicture);
-        fsm.AddState(lenovo);
-        fsm.AddState(model);
+        fsm.AddState(lenovoModelRotationState);
+        fsm.AddState(takePictureState);
 
-        fsm.AddState(butter);
+        fsm.AddState(modelControlState);
+
+        fsm.AddState(butterFlyState);
 
 
-       
+
 
 
     }
 
-    
+
     // Update is called once per frame
     void Update()
     {
@@ -117,16 +193,12 @@ public class GameProcess : MonoBehaviour
             fsm.CurrentState.Reason(player, gameObject);
             fsm.CurrentState.Act(player, gameObject);
         }
-
-    }
-
-    void OnGUI()
-    {
-        if (fsm.CurrentStateID == StateID.PlayerTakePicture)
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            takePicture.OnGUI();
+            StartCoroutine(Shot());
         }
-       
     }
+
+ 
 
 }

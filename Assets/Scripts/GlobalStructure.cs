@@ -5,13 +5,13 @@ using System;
 
 
 
-#if true
 public class GlobalStructure
 {
-    public string bkImagePath="e:/";
+    public string lenovoBKImagePath = "e:/kinectBk";
+    public string butterFlyBKImagePath = "e:/kinectBk";
    
     public string realityBKPath = ".";
-    public string savePicturePath = "e:/";
+    public string savePicturePath = "e:/kinectImage";
 
     public int maxPlayerCount=2;
 
@@ -30,25 +30,11 @@ public class GlobalStructure
 
     public int taskCount = 0;
 }
-#else
-public struct GlobalStructure
+public class GlobalVar
 {
-    public string bkImagePath = "e:/";
-    public string realityBKPath = ".";
-    public int maxPlayerCount = 2;
-    public float playModelTime = 30;
-    public float capturePhotoTime = 5;
-
-
-    public string model1Position = "0,0,0";
-    public string model2Position = "0,0,0";
-    public string model3Position = "0,0,0";
-
-    public float model1Scale = 1;
-    public float model2Scale = 1;
-    public float model3Scale = 1;
+    public static int SAVE_PICTURE_RANDOM_NUMBER_MAX = 10;
+    public static Vector3 POSITION_OUT_OF_WORLD = new Vector3(1000, 1000, 1000);
 }
-#endif
 public class Utility
 {
     public static string Vector3ToString(Vector3 vec)
@@ -64,3 +50,5 @@ public class Utility
 
     
 }
+
+

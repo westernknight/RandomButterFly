@@ -88,7 +88,9 @@ public class KinectManager : MonoBehaviour
 //	private KinectServer kinectServer = null;
 
 	// SensorData structure
-	private KinectInterop.SensorData sensorData = null;
+    [HideInInspector]
+	public KinectInterop.SensorData sensorData = null;
+    public bool canUpdateAvatar = false;
 
 	// Depth and user maps
 //	private KinectInterop.DepthBuffer depthImage;
@@ -1206,7 +1208,11 @@ public class KinectManager : MonoBehaviour
 				if((userIndex >= 0) && (userIndex < alUserIds.Count))
 				{
 					Int64 userId = alUserIds[userIndex];
-					controller.UpdateAvatar(userId);
+                    if (canUpdateAvatar)
+                    {
+                        controller.UpdateAvatar(userId);
+                    }
+					
 				}
 			}
 				

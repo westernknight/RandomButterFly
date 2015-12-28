@@ -3,7 +3,7 @@ using System.Collections;
 
 public class KinectPlayerAnalyst : MonoBehaviour
 {
-
+    public static KinectPlayerAnalyst instance;
     Vector3 playerOffset;
 
     public Vector3 PlayerOffset
@@ -12,6 +12,10 @@ public class KinectPlayerAnalyst : MonoBehaviour
         set { playerOffset = value; }
     }
     int playerCount = 0;
+    void Awake()
+    {
+        instance = this;
+    }
 	// Use this for initialization
 	void Start () {
 	
@@ -27,8 +31,14 @@ public class KinectPlayerAnalyst : MonoBehaviour
     /// <returns></returns>
     public int GetPlayerCount()
     {
-        return 0;
+        return playerCount;
     }
+    public void Debug_SetPlayerCount()
+{
+    playerCount = 100;
+}
+   
+
     /// <summary>
     /// 
     /// </summary>
