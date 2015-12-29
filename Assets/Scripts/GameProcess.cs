@@ -6,7 +6,7 @@ using UnityEngine;
 using System.Collections;
 using System.IO;
 using UnityEngine.UI;
-
+using System.Collections.Generic;
 public class GameProcess : MonoBehaviour
 {
     public static GameProcess instance;
@@ -28,11 +28,10 @@ public class GameProcess : MonoBehaviour
     public ModelControlState modelControlState;
     public PlayerTakePictureState takePictureState;
 
-
+    Texture2D usersClrTex;
     GameObject player;
 
     public GlobalStructure config = new GlobalStructure();
-    public KinectInterop.SensorData sensorData = null;
     /// <summary>
     /// scene1
     /// </summary>
@@ -45,7 +44,9 @@ public class GameProcess : MonoBehaviour
     /// </summary>
     public Image butterFlyBkImage;
     public GameObject butterFlyModelPrefab;
-
+    public Image cursor;
+    public GameObject cursorCube;
+    public Image butterFly;
 
     /// <summary>
     /// scene3
@@ -60,6 +61,13 @@ public class GameProcess : MonoBehaviour
     
 
     Texture butterflyStateBk;
+
+    bool isShottingThreadRunning = false;
+
+    public TimeCounter timeText;
+    public Text pictureNameText;
+ 
+
     void Awake()
     {
         instance = this;
@@ -102,8 +110,7 @@ public class GameProcess : MonoBehaviour
 
 
         InitParam();
-        StartCoroutine(InitKinect());
-        
+        StartCoroutine(WaitForKinectReady());
     }
     public void SaveConfig()
     {
@@ -115,33 +122,46 @@ public class GameProcess : MonoBehaviour
             sw.Close();
         }
     }
-    IEnumerator InitKinect()
+    public void RenderToImage(Image image)
     {
-        while (sensorData == null)
+        if (isShottingThreadRunning == false)
         {
-            sensorData = KinectManager.Instance.sensorData;
-            yield return null;
+            StartCoroutine(Shot(image));       
         }
-        
-        StartCoroutine(Shot());
-        MakeFSM();
+     
     }
-
-    IEnumerator Shot()
+    IEnumerator Shot(Image image)
     {
+        isShottingThreadRunning = true;
+        var sensorData = KinectPlayerAnalyst.instance.sensorData;
         while (KinectInterop.PollColorFrame(sensorData) == false)
         {
             Debug.Log("yield return null");
             yield return null;
         }
-        Texture2D usersClrTex = new Texture2D(sensorData.colorImageWidth, sensorData.colorImageHeight, TextureFormat.RGBA32, false);
+        if (usersClrTex==null)
+        {
+            usersClrTex = new Texture2D(sensorData.colorImageWidth, sensorData.colorImageHeight, TextureFormat.RGBA32, false);
+        }
+       
 
         usersClrTex.LoadRawTextureData(sensorData.colorImage);
         usersClrTex.Apply();
-        kinectBkImage.overrideSprite = Sprite.Create(usersClrTex, new Rect(0, 0, usersClrTex.width, usersClrTex.height), new Vector2(0.5f, 0.5f));
+        image.overrideSprite = Sprite.Create(usersClrTex, new Rect(0, 0, usersClrTex.width, usersClrTex.height), new Vector2(0.5f, 0.5f));
+        
+        isShottingThreadRunning = false;
 
     }
-
+    IEnumerator WaitForKinectReady()
+    {
+        while (KinectPlayerAnalyst.instance.isKinectInitialized == false)
+        {
+            yield return null;
+        }
+        Debug.Log("ShotToImage");
+        RenderToImage(kinectBkImage);
+        MakeFSM();
+    }
     public void SetTransition(StateID t) { fsm.PerformTransition(t); }
     private void InitParam()
     {
@@ -165,7 +185,7 @@ public class GameProcess : MonoBehaviour
 
 
         takePictureState = new PlayerTakePictureState(this);
-        takePictureState.AddTransition(StateID.ButterFly);
+        takePictureState.AddTransition(StateID.LenovoModelRotation);
 
 
 
@@ -193,9 +213,26 @@ public class GameProcess : MonoBehaviour
             fsm.CurrentState.Reason(player, gameObject);
             fsm.CurrentState.Act(player, gameObject);
         }
+
+        if (Input.GetKeyDown(KeyCode.F1))
+        {
+            GameProcess.instance.SetTransition(StateID.ButterFly);
+        }
+        if (Input.GetKeyDown(KeyCode.F2))
+        {
+            GameProcess.instance.SetTransition(StateID.ModelControl);
+        }
+        if (Input.GetKeyDown(KeyCode.F3))
+        {
+            GameProcess.instance.SetTransition(StateID.PlayerTakePicture);
+        }
+        if (Input.GetKeyDown(KeyCode.F4))
+        {
+            GameProcess.instance.SetTransition(StateID.LenovoModelRotation);
+        }
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            StartCoroutine(Shot());
+            RenderToImage(kinectBkImage);
         }
     }
 

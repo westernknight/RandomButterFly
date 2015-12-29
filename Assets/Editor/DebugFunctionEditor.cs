@@ -56,13 +56,13 @@ public class DebugFunctionEditor : EditorWindow
                 rot1.transform.rotation = rot2.transform.rotation;
             }
         }
-        if (GUILayout.Button("set 1 player"))
+        if (GUILayout.Button("set ButterFly"))
         {
-            KinectPlayerAnalyst.instance.Debug_SetPlayerCount();
+            GameProcess.instance.SetTransition(StateID.ButterFly);
         }
         if (GUILayout.Button("set catch 1 butterfly"))
         {
-            GameProcess.instance.butterFlyState.catchOneButterfly = true;
+            GameProcess.instance.butterFlyState.isCatchOneButterfly = true;
         }
         if (GUILayout.Button("set ctrl timeout"))
         {

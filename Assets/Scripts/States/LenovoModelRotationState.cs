@@ -74,6 +74,7 @@ public class LenovoModelRotationState : FSMState
     {
         RemoveStateAnimation();
         initBk = false;
+        lenovoModelShowTime = 0;
     }
     void AddStateAnimation()
     {
@@ -83,25 +84,26 @@ public class LenovoModelRotationState : FSMState
     void RemoveStateAnimation()
     {
         gameProcess.lenovoBkImage.gameObject.SetActive(false);
-        gameProcess.lenovoCumputer.gameObject.SetActive(false);
+       
 
     }
 
     public override void Reason(GameObject player, GameObject npc)
     {
-        if (KinectPlayerAnalyst.instance.GetPlayerCount() > 0 && lenovoModelShowTime > gameProcess.config.playModelTime)
+        if (KinectPlayerAnalyst.instance.GetUsersCount() > 0 && lenovoModelShowTime > gameProcess.config.playModelTime)
         {
             gameProcess.SetTransition(StateID.ButterFly);
         }
-        else if (KinectPlayerAnalyst.instance.GetPlayerCount() > 30)//debug
-        {
-            gameProcess.SetTransition(StateID.ButterFly);
-        }
+       
     }
 
     public override void Act(GameObject player, GameObject npc)
     {
         lenovoModelShowTime += Time.deltaTime;
+
+
+
+       
     }
 
 }

@@ -8,14 +8,16 @@ using System;
 public class GlobalStructure
 {
     public string lenovoBKImagePath = "e:/kinectBk";
-    public string butterFlyBKImagePath = "e:/kinectBk";
+    public string butterFlyBKImagePath = "e:/butterflyBk";
    
     public string realityBKPath = ".";
     public string savePicturePath = "e:/kinectImage";
 
     public int maxPlayerCount=2;
 
-    public double playModelTime = 30;
+    public int touchButterflyTime = 3;
+
+    public double playModelTime = 8;
     public double capturePhotoTime = 5;
 
     public string model1Position="0,0,0";

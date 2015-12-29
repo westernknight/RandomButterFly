@@ -84,7 +84,7 @@ public class AvatarController : MonoBehaviour
 	private Quaternion originalRotation;
 	
 	// private instance of the KinectManager
-	private KinectManager kinectManager;
+    private KinectPlayerAnalyst kinectManager;
 
 	private Vector3 hipsUp;  // up vector of the hips
 	private Vector3 hipsRight;  // right vector of the hips
@@ -119,7 +119,7 @@ public class AvatarController : MonoBehaviour
 		// Get the KinectManager instance
 		if(kinectManager == null)
 		{
-			kinectManager = KinectManager.Instance;
+            kinectManager = KinectPlayerAnalyst.instance;
 		}
 
 		// move the avatar to its Kinect position

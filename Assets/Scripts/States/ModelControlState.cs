@@ -9,6 +9,7 @@ public class ModelControlState : FSMState
         stateID = StateID.ModelControl;
         this.mono = mono;
         gameProcess = mono as GameProcess;
+      
     }
     public float secondElapse = 0;
     public override void DoBeforeEntering()
@@ -17,6 +18,9 @@ public class ModelControlState : FSMState
         //create models; to prepare
         
         AddStateAnimation();
+
+        gameProcess.timeText.gameObject.SetActive(true);
+        gameProcess.timeText.ResetAndStart(  (float)gameProcess.config.playModelTime);
     }
   
     public override void DoBeforeLeaving()
@@ -28,19 +32,19 @@ public class ModelControlState : FSMState
     {
         gameProcess.playerModel1.SetActive(true);
         gameProcess.playerModel1.transform.position = Utility.StringToVector3(gameProcess.config.model1Position);
-        gameProcess.playerModel1.GetComponentInChildren<AvatarController>().Start();
-        KinectManager.Instance.canUpdateAvatar = true;
+        gameProcess.playerModel1.transform.rotation = Quaternion.Euler(0, 180, 0);
+        KinectPlayerAnalyst.instance.isCanUpdateAvatar = true;
         gameProcess.kinectBkImage.gameObject.SetActive(true);
     }
     void RemoveStateAnimation()
     {
-        KinectManager.Instance.canUpdateAvatar = false;
+        KinectPlayerAnalyst.instance.isCanUpdateAvatar = false;
         gameProcess.kinectBkImage.gameObject.SetActive(false);
 
     }
     public override void Reason(GameObject player, GameObject npc)
     {
-        if (secondElapse>30)
+        if (gameProcess.timeText.isTimeOut)
         {
             gameProcess.SetTransition(StateID.PlayerTakePicture);
         }

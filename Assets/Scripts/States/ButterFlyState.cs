@@ -3,13 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using Windows.Kinect;
+using System;
 
 public class ButterFlyState : FSMState
 {
     private bool initBk = false;
     GameProcess gameProcess;
 
-    public bool catchOneButterfly = false;
+    public bool isCatchOneButterfly = false;
+    public bool isTouching = false;
+    public float touchingTime = 0;
     private CoordinateMapper coordinateMapper = null;
     public ButterFlyState(MonoBehaviour mono)
     {
@@ -44,7 +47,7 @@ public class ButterFlyState : FSMState
         if (imageFileList.Count > 0)
         {
 
-            int index = Random.Range(0, imageFileList.Count);
+            int index = UnityEngine.Random.Range(0, imageFileList.Count);
             WWW www = new WWW("file:///" + imageFileList[index]);
             Debug.Log("LoadATexture picture:" + imageFileList[index]);
             while (www.isDone == false)
@@ -75,22 +78,28 @@ public class ButterFlyState : FSMState
   
     public override void DoBeforeLeaving()
     {
-        catchOneButterfly = false;
+        isCatchOneButterfly = false;
         initBk = false;
+        gameProcess.lenovoCumputer.gameObject.SetActive(false);
+        gameProcess.cursor.gameObject.SetActive(false);
+        isTouching = false;
+        touchingTime = 0;
         RemoveStateAnimation();
     }
     void AddStateAnimation()
     {
         gameProcess.butterFlyBkImage.gameObject.SetActive(true);
+        gameProcess.butterFly.gameObject.SetActive(true);
     }
     void RemoveStateAnimation()
     {
         gameProcess.butterFlyBkImage.gameObject.SetActive(false);
+        gameProcess.butterFly.gameObject.SetActive(false);
 
     }
     public override void Reason(GameObject player, GameObject npc)
     {
-        if (catchOneButterfly)
+        if (isCatchOneButterfly)
         {
             gameProcess.SetTransition(StateID.ModelControl);
         }
@@ -98,5 +107,48 @@ public class ButterFlyState : FSMState
 
     public override void Act(GameObject player, GameObject npc)
     {
+        KinectPlayerAnalyst kinect = KinectPlayerAnalyst.instance;
+        Int64 userID = kinect.GetPrimaryUserID();
+    
+        if (kinect.GetRightHandPosition(userID)!=Vector3.zero)
+        {
+            Vector3 handPos = kinect.GetRightHandPosition(userID);
+            float cursorX = handPos.x / 0.5f * Screen.width/2;
+            float cursorY = (handPos.y-1.3f) / 0.3f * Screen.height/2;
+            gameProcess.cursor.gameObject.GetComponent<RectTransform>().localPosition = new Vector3(cursorX, cursorY, -20);
+            gameProcess.cursor.gameObject.SetActive(true);
+            
+        }
+        else
+        {
+            gameProcess.cursor.gameObject.SetActive(false);
+        }
+        CheckTouch();
+
+
+    }
+    void CheckTouch()
+    {
+
+        Ray ray = new Ray(gameProcess.cursorCube.transform.position, gameProcess.cursorCube.transform.forward);
+        RaycastHit hitInfo;
+
+        if (Physics.Raycast(ray, out hitInfo) && gameProcess.cursor.gameObject.activeSelf)
+        {
+            isTouching = true;
+        }
+        else
+        {
+            isTouching = false;
+            touchingTime = 0;
+        }
+        if (isTouching)
+        {
+            touchingTime += Time.deltaTime;
+            if (touchingTime > gameProcess.config.touchButterflyTime)
+            {
+                isCatchOneButterfly = true;
+            }
+        }
     }
 }
