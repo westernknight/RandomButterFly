@@ -10,6 +10,7 @@ public class DebugFunctionEditor : EditorWindow
 
     GameObject rot1;
     GameObject rot2;
+    GameObject lookat;
     [MenuItem("Debug/功能调试 ")]
     static void Init()
     {
@@ -67,6 +68,21 @@ public class DebugFunctionEditor : EditorWindow
         if (GUILayout.Button("set ctrl timeout"))
         {
             GameProcess.instance.modelControlState.secondElapse = 40;
+        }
+
+        lookat = EditorGUILayout.ObjectField(lookat, typeof(GameObject)) as GameObject;
+
+        if (GUILayout.Button(" sel lookat obj"))
+        {
+            GameObject go = GameObject.Find("Particle System");
+            if (go != null && lookat != null)
+            {
+                go.transform.LookAt(lookat.transform.position);
+            }
+        }
+        if (Application.isPlaying)
+        {
+            Debug.Log(KinectPlayerAnalyst.instance.GetUsersCount());
         }
         GUILayout.EndScrollView();
     }

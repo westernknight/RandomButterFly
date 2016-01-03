@@ -60,6 +60,7 @@ public enum StateID
     LenovoModelRotation,
     ModelControl,
     PlayerTakePicture,
+    Adjustment,
 }
 
 /// <summary>
@@ -268,11 +269,12 @@ public class FSMSystem
         {
             if (state.ID == id)
             {
+               
                 // Do the post processing of the state before setting the new one
                 currentState.DoBeforeLeaving();
 
                 currentState = state;
-
+                Debug.Log("change to state: " + currentState);
                 // Reset the state to its desired condition before it can reason or act
                 currentState.DoBeforeEntering();
                 currentStateID = id;

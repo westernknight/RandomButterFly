@@ -27,53 +27,29 @@ public class ButterFlyState : FSMState
     /// </summary>
     /// <param name="path"></param>
     /// <returns></returns>
-    public IEnumerator LoadATexture(string path)
-    {
-        Debug.Log("LoadATexture path:" + path);
-        List<string> imageFileList = new List<string>();
-        if (Directory.Exists(path))
-        {
-            string[] filepath = Directory.GetFiles(path, "*.png");
-            imageFileList.AddRange(filepath);
-            filepath = Directory.GetFiles(path, "*.jpg");
-            imageFileList.AddRange(filepath);
-
-            Debug.Log(" length " + imageFileList.Count);
-            for (int i = 0; i < imageFileList.Count; i++)
-            {
-                Debug.Log(imageFileList[i]);
-            }
-        }
-        if (imageFileList.Count > 0)
-        {
-
-            int index = UnityEngine.Random.Range(0, imageFileList.Count);
-            WWW www = new WWW("file:///" + imageFileList[index]);
-            Debug.Log("LoadATexture picture:" + imageFileList[index]);
-            while (www.isDone == false)
-            {
-                yield return null;
-            }
-            if (www.error == null)
-            {
-                var lenovoStateBk = www.texture;
-
-                gameProcess.butterFlyBkImage.overrideSprite = Sprite.Create(lenovoStateBk, new Rect(0, 0, lenovoStateBk.width, lenovoStateBk.height), new Vector2(0.5f, 0.5f));
-                Debug.Log("LoadATexture load sucess");
-            }
-        }
-
-    }
+    
     private void Reader_FrameArrived( BodyFrameArrivedEventArgs e)
     {
     }
     public override void DoBeforeEntering()
     {
-        if (gameProcess)
+
+        gameProcess.butterFlyBkImage.gameObject.SetActive(true);
+        gameProcess.butterFly.gameObject.SetActive(true);
+
+
         {
-            mono.StartCoroutine(LoadATexture(gameProcess.config.butterFlyBKImagePath));
+            Color c = gameProcess.butterFlyBkImage.color;
+            c.a = 0;
+            gameProcess.butterFlyBkImage.color = c;
         }
-        AddStateAnimation();
+        LeanTween.value(gameProcess.butterFlyBkImage.gameObject, 0, 1, 0.5f).setOnUpdate(
+            (float v) =>
+            {
+                Color c = gameProcess.butterFlyBkImage.color;
+                c.a = v;
+                gameProcess.butterFlyBkImage.color = c;
+            });
     }
   
     public override void DoBeforeLeaving()
@@ -84,19 +60,29 @@ public class ButterFlyState : FSMState
         gameProcess.cursor.gameObject.SetActive(false);
         isTouching = false;
         touchingTime = 0;
-        RemoveStateAnimation();
-    }
-    void AddStateAnimation()
-    {
-        gameProcess.butterFlyBkImage.gameObject.SetActive(true);
-        gameProcess.butterFly.gameObject.SetActive(true);
-    }
-    void RemoveStateAnimation()
-    {
-        gameProcess.butterFlyBkImage.gameObject.SetActive(false);
+
         gameProcess.butterFly.gameObject.SetActive(false);
 
+
+
+
+        LeanTween.value(gameProcess.butterFlyBkImage.gameObject, 1, 0, 0.5f).setOnUpdate(
+           (float v) =>
+           {
+               Color c = gameProcess.butterFlyBkImage.color;
+               c.a = v;
+               gameProcess.butterFlyBkImage.color = c;
+           }).setOnComplete(() =>
+           {
+               Color c = gameProcess.butterFlyBkImage.color;
+               c.a = 1;
+               //结束后自动随机下一张
+               mono.StartCoroutine(gameProcess.LoadATexture(gameProcess.config.butterFlyBKImagePath, gameProcess.butterFlyBkImage));
+               gameProcess.butterFlyBkImage.gameObject.SetActive(false);
+           });
+
     }
+ 
     public override void Reason(GameObject player, GameObject npc)
     {
         if (isCatchOneButterfly)

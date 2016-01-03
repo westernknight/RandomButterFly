@@ -7,7 +7,6 @@ using System.Collections.Generic;
 public class LenovoModelRotationState : FSMState
 {
     GameProcess gameProcess;
-    private bool initBk = false;
     float lenovoModelShowTime = 0;
     public LenovoModelRotationState(MonoBehaviour mono)
     {
@@ -22,71 +21,60 @@ public class LenovoModelRotationState : FSMState
     /// </summary>
     /// <param name="path"></param>
     /// <returns></returns>
-    public IEnumerator LoadATexture(string path)
-    {
-        Debug.Log("LoadATexture path:"+path);
-        List<string> imageFileList = new List<string>();
-        if (Directory.Exists(path) )
-        {
-            string [] filepath = Directory.GetFiles(path, "*.png");
-            imageFileList.AddRange(filepath);
-            filepath = Directory.GetFiles(path, "*.jpg");
-            imageFileList.AddRange(filepath);
 
-            Debug.Log(" length " + imageFileList.Count);
-            for (int i = 0; i < imageFileList.Count; i++)
-            {
-                Debug.Log(imageFileList[i]);
-            }
-        }
-        if (imageFileList.Count>0)
-        {
-           
-            int index = Random.Range(0,imageFileList.Count);
-            WWW www = new WWW("file:///" +imageFileList[ index]);
-            Debug.Log("LoadATexture picture:" + imageFileList[index]);
-            while (www.isDone == false)
-            {
-                yield return null;
-            }
-            if (www.error == null)
-            {
-                var lenovoStateBk = www.texture;
-
-                gameProcess.lenovoBkImage.overrideSprite = Sprite.Create(lenovoStateBk, new Rect(0, 0, lenovoStateBk.width, lenovoStateBk.height), new Vector2(0.5f, 0.5f));
-                Debug.Log("LoadATexture load sucess");
-            }
-        }
-        
-    }
     public override void DoBeforeEntering()
     {
         //获取背景图路径
         
-        if (gameProcess)
+  
+        //AddStateAnimation;
+        gameProcess.lenovoBkImage.gameObject.SetActive(true);
+        gameProcess.lenovoCumputer.gameObject.SetActive(true);
+
         {
-            mono.StartCoroutine(LoadATexture(gameProcess.config.lenovoBKImagePath));
+            Color c = gameProcess.lenovoBkImage.color;
+            c.a = 0;
+            gameProcess.lenovoBkImage.color = c;
         }
-        AddStateAnimation();
+       
+
+        LeanTween.value(gameProcess.lenovoBkImage.gameObject, 0, 1, 0.5f).setOnUpdate(
+            (float v) =>
+            {
+                Color c = gameProcess.lenovoBkImage.color;
+                c.a = v;
+                gameProcess.lenovoBkImage.color = c;
+            });
     }
   
     public override void DoBeforeLeaving()
     {
-        RemoveStateAnimation();
-        initBk = false;
+      
         lenovoModelShowTime = 0;
-    }
-    void AddStateAnimation()
-    {
-        gameProcess.lenovoBkImage.gameObject.SetActive(true);
-        gameProcess.lenovoCumputer.gameObject.SetActive(true);
-    }
-    void RemoveStateAnimation()
-    {
-        gameProcess.lenovoBkImage.gameObject.SetActive(false);
-       
+        //RemoveStateAnimation
+        
+        gameProcess.lenovoCumputer.gameObject.SetActive(false);
 
+
+        LeanTween.value(gameProcess.lenovoBkImage.gameObject, 1, 0, 0.5f).setOnUpdate(
+            (float v) => 
+            {
+                Color c = gameProcess.lenovoBkImage.color;
+                c.a = v;
+                gameProcess.lenovoBkImage.color = c;
+            }).setOnComplete(() =>
+            {
+                Color c = gameProcess.lenovoBkImage.color;
+                c.a = 1;
+                //结束后自动随机下一张
+                mono.StartCoroutine(gameProcess.LoadATexture(gameProcess.config.lenovoBKImagePath, gameProcess.lenovoBkImage));
+                gameProcess.lenovoBkImage.gameObject.SetActive(false);
+            });
+
+       
     }
+
+
 
     public override void Reason(GameObject player, GameObject npc)
     {

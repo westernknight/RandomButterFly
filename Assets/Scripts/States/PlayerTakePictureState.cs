@@ -46,6 +46,8 @@ public class PlayerTakePictureState : FSMState
         gameProcess.timeText.gameObject.SetActive(false);
         gameProcess.pictureNameText.gameObject.SetActive(false);
         Application.CaptureScreenshot(   Path.Combine(gp.config.savePicturePath,      picName), 0);
+
+
         gameProcess.config.taskCount++;
         gameProcess.SaveConfig();
        
@@ -55,7 +57,7 @@ public class PlayerTakePictureState : FSMState
     {
         if (isShot)
         {
-            gameProcess.SetTransition(StateID.LenovoModelRotation);
+           // gameProcess.SetTransition(StateID.LenovoModelRotation);
         }
     }
   
@@ -67,7 +69,10 @@ public class PlayerTakePictureState : FSMState
             isShot = true;
             SavePicture();
         }
-        gameProcess.RenderToImage(gameProcess.takePictureImage);
+        if (isShot==false)
+        {
+            gameProcess.RenderToImage(gameProcess.takePictureImage);
+        }
     }
    
 }
