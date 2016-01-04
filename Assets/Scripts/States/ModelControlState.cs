@@ -15,12 +15,17 @@ public class ModelControlState : FSMState
     public override void DoBeforeEntering()
     {
         Debug.Log("ModelControlState DoBeforeEntering");
+
+        //根据model1的Y轴位置决定地板位置
+        Vector3 pos = Utility.StringToVector3(gameProcess.config.model1Position);
+        GameObject.Find("TransparentFloor").transform.position = new Vector3(0, pos.y, 0);
         //create models; to prepare
         
         AddStateAnimation();
 
         gameProcess.timeText.gameObject.SetActive(true);
         gameProcess.timeText.ResetAndStart(  (float)gameProcess.config.playModelTime);
+
     }
   
     public override void DoBeforeLeaving()
@@ -34,12 +39,15 @@ public class ModelControlState : FSMState
         gameProcess.playerModel1.transform.position = Utility.StringToVector3(gameProcess.config.model1Position);
         gameProcess.playerModel1.transform.rotation = Quaternion.Euler(0, 180, 0);
         KinectPlayerAnalyst.instance.isCanUpdateAvatar = true;
-        gameProcess.kinectBkImage.gameObject.SetActive(true);
+       // gameProcess.kinectBkImage.gameObject.SetActive(true);
+        gameProcess.kinectBkImagePlane.SetActive(true);
+        
     }
     void RemoveStateAnimation()
     {
         KinectPlayerAnalyst.instance.isCanUpdateAvatar = false;
-        gameProcess.kinectBkImage.gameObject.SetActive(false);
+       // gameProcess.kinectBkImage.gameObject.SetActive(false);
+        gameProcess.kinectBkImagePlane.SetActive(false);
 
     }
     public override void Reason(GameObject player, GameObject npc)

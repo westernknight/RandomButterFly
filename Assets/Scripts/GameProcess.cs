@@ -54,13 +54,14 @@ public class GameProcess : MonoBehaviour
     /// scene3
     /// </summary>
     public Image kinectBkImage;
+    public GameObject kinectBkImagePlane;
     public GameObject playerModel1;
 
     /// <summary>
     /// scene4
     /// </summary>
     public Image takePictureImage;
-    
+
 
     Texture butterflyStateBk;
 
@@ -68,7 +69,7 @@ public class GameProcess : MonoBehaviour
 
     public TimeCounter timeText;
     public Text pictureNameText;
- 
+
 
     void Awake()
     {
@@ -78,7 +79,7 @@ public class GameProcess : MonoBehaviour
     void Start()
     {
 
-     
+
 
         FileInfo fi = new FileInfo(Path.Combine(Application.streamingAssetsPath, "config.json"));
         if (fi.Exists)
@@ -112,7 +113,7 @@ public class GameProcess : MonoBehaviour
 
 
         InitParam();
-        
+
         StartCoroutine(LoadATexture(config.lenovoBKImagePath, lenovoBkImage));
         StartCoroutine(LoadATexture(config.butterFlyBKImagePath, butterFlyBkImage));
         StartCoroutine(WaitForKinectReady());
@@ -132,9 +133,9 @@ public class GameProcess : MonoBehaviour
     {
         if (isShottingThreadRunning == false)
         {
-            StartCoroutine(Shot(image));       
+            StartCoroutine(Shot(image));
         }
-     
+
     }
     IEnumerator Shot(Image image)
     {
@@ -162,11 +163,17 @@ public class GameProcess : MonoBehaviour
     public void ShotToKinectBk()
     {
 
-        StartCoroutine(ShotToKinectBkEnumerator());       
-       
+        StartCoroutine(ShotToKinectBkEnumerator());
+
     }
+
+    byte[] correctColorImageData;
     public IEnumerator ShotToKinectBkEnumerator()
     {
+        if (correctColorImageData == null)
+        {
+            correctColorImageData = new byte[1920 * 1080 * 4];
+        }
         var sensorData = KinectPlayerAnalyst.instance.sensorData;
         while (KinectInterop.PollColorFrame(sensorData) == false)
         {
@@ -176,11 +183,20 @@ public class GameProcess : MonoBehaviour
         {
             texForKinectBk = new Texture2D(sensorData.colorImageWidth, sensorData.colorImageHeight, TextureFormat.RGBA32, false);
         }
+        for (int y = 0; y < 1080; y++)
+        {
+            for (int x = 0; x < 1920; x++)
+            {
+                correctColorImageData[x * 4 + 1920 * 4 * y] = sensorData.colorImage[x * 4 + 1920 * 4 * (1080 - (y + 1))];
+                correctColorImageData[x * 4 + 1 + 1920 * 4 * y] = sensorData.colorImage[x * 4 + 1 + 1920 * 4 * (1080 - (y + 1))];
+                correctColorImageData[x * 4 + 2 + 1920 * 4 * y] = sensorData.colorImage[x * 4 + 2 + 1920 * 4 * (1080 - (y + 1))];
+                correctColorImageData[x * 4 + 3 + 1920 * 4 * y] = sensorData.colorImage[x * 4 + 3 + 1920 * 4 * (1080 - (y + 1))];
+            }
+        }
 
-
-        texForKinectBk.LoadRawTextureData(sensorData.colorImage);
+        texForKinectBk.LoadRawTextureData(correctColorImageData);
         texForKinectBk.Apply();
-
+        kinectBkImagePlane.renderer.material.mainTexture = texForKinectBk;
         kinectBkImage.overrideSprite = Sprite.Create(texForKinectBk, new Rect(0, 0, texForKinectBk.width, texForKinectBk.height), new Vector2(0.5f, 0.5f));
     }
     IEnumerator WaitForKinectReady()
@@ -198,6 +214,9 @@ public class GameProcess : MonoBehaviour
     {
         //to do
         //lenovoBkImage = GameObject.Find("lenovoBkImage").GetComponent<Image>();
+
+
+
     }
     private void MakeFSM()
     {
@@ -241,7 +260,7 @@ public class GameProcess : MonoBehaviour
 
     }
 
-    public IEnumerator LoadATexture(string path,Image image)
+    public IEnumerator LoadATexture(string path, Image image)
     {
         Debug.Log("LoadATexture path:" + path);
         List<string> imageFileList = new List<string>();
@@ -313,6 +332,6 @@ public class GameProcess : MonoBehaviour
         }
     }
 
- 
+
 
 }
