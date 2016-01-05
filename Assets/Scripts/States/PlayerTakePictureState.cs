@@ -19,8 +19,8 @@ public class PlayerTakePictureState : FSMState
  
     public override void DoBeforeEntering()
     {
-        gameProcess.kinectBkImage.gameObject.SetActive(false);
-        gameProcess.takePictureImage.gameObject.SetActive(true);
+        gameProcess.kinectBkImagePlane.SetActive(true);
+
   
         gameProcess.timeText.gameObject.SetActive(true);
         gameProcess.timeText.ResetAndStart((float)gameProcess.config.capturePhotoTime);
@@ -33,10 +33,13 @@ public class PlayerTakePictureState : FSMState
     public override void DoBeforeLeaving()
     {
         gameProcess.timeText.gameObject.SetActive(false);
-        gameProcess.takePictureImage.gameObject.SetActive(false);
-        gameProcess.playerModel1.SetActive(false);
+        for (int i = 0; i < gameProcess.playerModels.Count; i++)
+        {
+            gameProcess.playerModels[i].SetActive(false);
+        }
         gameProcess.pictureNameText.gameObject.SetActive(false);
-        
+        gameProcess.kinectBkImagePlane.SetActive(false);
+        isShot = false;
     }
     void SavePicture()
     {

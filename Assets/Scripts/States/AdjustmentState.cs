@@ -20,13 +20,13 @@ public class AdjustmentState : FSMState
     public override void DoBeforeEntering()
     {
 
-        gameProcess.takePictureImage.gameObject.SetActive(true);
+        gameProcess.kinectBkImagePlane.SetActive(true);
   
     }
 
     public override void DoBeforeLeaving()
     {
-        gameProcess.takePictureImage.gameObject.SetActive(false);
+        gameProcess.kinectBkImagePlane.SetActive(false);
   
         
     }

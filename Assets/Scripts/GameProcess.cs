@@ -7,6 +7,7 @@ using System.Collections;
 using System.IO;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using System;
 public class GameProcess : MonoBehaviour
 {
     public static GameProcess instance;
@@ -30,7 +31,7 @@ public class GameProcess : MonoBehaviour
     public AdjustmentState adjustmentState;
 
     Texture2D usersClrTex;
-    Texture2D texForKinectBk;
+    Texture2D texShotted;
     GameObject player;
 
     public GlobalStructure config = new GlobalStructure();
@@ -55,13 +56,14 @@ public class GameProcess : MonoBehaviour
     /// </summary>
     public Image kinectBkImage;
     public GameObject kinectBkImagePlane;
-    public GameObject playerModel1;
+    public List<GameObject> playerModels = new List<GameObject>();
 
     /// <summary>
     /// scene4
     /// </summary>
     public Image takePictureImage;
 
+    public Text msgText;
 
     Texture butterflyStateBk;
 
@@ -70,7 +72,10 @@ public class GameProcess : MonoBehaviour
     public TimeCounter timeText;
     public Text pictureNameText;
 
-
+    /// <summary>
+    /// 人物ID对应模型
+    /// </summary>
+    public Dictionary<Int64, GameObject> modelMap = new Dictionary<Int64, GameObject>();
     void Awake()
     {
         instance = this;
@@ -79,8 +84,21 @@ public class GameProcess : MonoBehaviour
     void Start()
     {
 
-
-
+        KinectPlayerAnalyst.instance.addPlayer += (Int64 userid) =>
+            {
+                for (int i = 0; i < playerModels.Count; i++)
+                {
+                    if (playerModels[i].activeSelf == false)
+                    {
+                        modelMap.Add(userid, playerModels[i]);                        
+                        break;
+                    }
+                }
+            };
+        KinectPlayerAnalyst.instance.removePlayer += (Int64 userid) =>
+        {
+            modelMap.Remove(userid);
+        };
         FileInfo fi = new FileInfo(Path.Combine(Application.streamingAssetsPath, "config.json"));
         if (fi.Exists)
         {
@@ -131,38 +149,45 @@ public class GameProcess : MonoBehaviour
     }
     public void RenderToImage(Image image)
     {
+        if (correctColorImageData == null)
+        {
+            correctColorImageData = new byte[1920 * 1080 * 4];
+        }
         if (isShottingThreadRunning == false)
         {
-            StartCoroutine(Shot(image));
+            var sensorData = KinectPlayerAnalyst.instance.sensorData;
+            if (KinectInterop.PollColorFrame(sensorData))
+            {
+                if (usersClrTex == null)
+                {
+                    usersClrTex = new Texture2D(sensorData.colorImageWidth, sensorData.colorImageHeight, TextureFormat.RGBA32, false);
+                }
+
+                for (int y = 0; y < 1080; y++)
+                {
+                    for (int x = 0; x < 1920; x++)
+                    {
+                        correctColorImageData[x * 4 + 1920 * 4 * y] = sensorData.colorImage[x * 4 + 1920 * 4 * (1080 - (y + 1))];
+                        correctColorImageData[x * 4 + 1 + 1920 * 4 * y] = sensorData.colorImage[x * 4 + 1 + 1920 * 4 * (1080 - (y + 1))];
+                        correctColorImageData[x * 4 + 2 + 1920 * 4 * y] = sensorData.colorImage[x * 4 + 2 + 1920 * 4 * (1080 - (y + 1))];
+                        correctColorImageData[x * 4 + 3 + 1920 * 4 * y] = sensorData.colorImage[x * 4 + 3 + 1920 * 4 * (1080 - (y + 1))];
+                    }
+                }
+
+                usersClrTex.LoadRawTextureData(correctColorImageData);
+                usersClrTex.Apply();
+
+                //image.overrideSprite = Sprite.Create(usersClrTex, new Rect(0, 0, usersClrTex.width, usersClrTex.height), new Vector2(0.5f, 0.5f));
+                kinectBkImagePlane.renderer.material.mainTexture = usersClrTex;
+            }
+
         }
+
 
     }
-    IEnumerator Shot(Image image)
+
+    public void CapturePicture()
     {
-        isShottingThreadRunning = true;
-        var sensorData = KinectPlayerAnalyst.instance.sensorData;
-        while (KinectInterop.PollColorFrame(sensorData) == false)
-        {
-            Debug.Log("yield return null");
-            yield return null;
-        }
-        if (usersClrTex == null)
-        {
-            usersClrTex = new Texture2D(sensorData.colorImageWidth, sensorData.colorImageHeight, TextureFormat.RGBA32, false);
-        }
-
-
-        usersClrTex.LoadRawTextureData(sensorData.colorImage);
-        usersClrTex.Apply();
-
-        image.overrideSprite = Sprite.Create(usersClrTex, new Rect(0, 0, usersClrTex.width, usersClrTex.height), new Vector2(0.5f, 0.5f));
-
-        isShottingThreadRunning = false;
-
-    }
-    public void ShotToKinectBk()
-    {
-
         StartCoroutine(ShotToKinectBkEnumerator());
 
     }
@@ -170,18 +195,23 @@ public class GameProcess : MonoBehaviour
     byte[] correctColorImageData;
     public IEnumerator ShotToKinectBkEnumerator()
     {
+
+        Debug.LogError("ShotToKinectBkEnumerator");
         if (correctColorImageData == null)
         {
             correctColorImageData = new byte[1920 * 1080 * 4];
         }
         var sensorData = KinectPlayerAnalyst.instance.sensorData;
+        isShottingThreadRunning = true;
         while (KinectInterop.PollColorFrame(sensorData) == false)
         {
             yield return null;
         }
-        if (texForKinectBk == null)
+        isShottingThreadRunning = false;
+        Debug.LogError("ShotToKinectBkEnumerator middle");
+        if (texShotted == null)
         {
-            texForKinectBk = new Texture2D(sensorData.colorImageWidth, sensorData.colorImageHeight, TextureFormat.RGBA32, false);
+            texShotted = new Texture2D(sensorData.colorImageWidth, sensorData.colorImageHeight, TextureFormat.RGBA32, false);
         }
         for (int y = 0; y < 1080; y++)
         {
@@ -194,10 +224,15 @@ public class GameProcess : MonoBehaviour
             }
         }
 
-        texForKinectBk.LoadRawTextureData(correctColorImageData);
-        texForKinectBk.Apply();
-        kinectBkImagePlane.renderer.material.mainTexture = texForKinectBk;
-        kinectBkImage.overrideSprite = Sprite.Create(texForKinectBk, new Rect(0, 0, texForKinectBk.width, texForKinectBk.height), new Vector2(0.5f, 0.5f));
+        texShotted.LoadRawTextureData(correctColorImageData);
+        texShotted.Apply();
+        kinectBkImage.overrideSprite = Sprite.Create(texShotted, new Rect(0, 0, texShotted.width, texShotted.height), new Vector2(0.5f, 0.5f));
+        Debug.LogError("ShotToKinectBkEnumerator end");
+    }
+    public void SetKinectBkShottedPicture()
+    {
+        Debug.Log("SetKinectBkShottedPicture");
+        kinectBkImagePlane.renderer.material.mainTexture = texShotted;
     }
     IEnumerator WaitForKinectReady()
     {
@@ -206,7 +241,7 @@ public class GameProcess : MonoBehaviour
             yield return null;
         }
         Debug.Log("ShotToImage");
-        ShotToKinectBk();
+        CapturePicture();
         MakeFSM();
     }
     public void SetTransition(StateID t) { fsm.PerformTransition(t); }
@@ -300,6 +335,10 @@ public class GameProcess : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            CapturePicture();
+        }
         if (fsm != null)
         {
             fsm.CurrentState.Reason(player, gameObject);
@@ -308,28 +347,28 @@ public class GameProcess : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.F1))
         {
-            GameProcess.instance.SetTransition(StateID.ButterFly);
+            GameProcess.instance.SetTransition(StateID.LenovoModelRotation);
+
         }
         if (Input.GetKeyDown(KeyCode.F2))
         {
-            GameProcess.instance.SetTransition(StateID.ModelControl);
+            GameProcess.instance.SetTransition(StateID.ButterFly);
+
         }
         if (Input.GetKeyDown(KeyCode.F3))
         {
-            GameProcess.instance.SetTransition(StateID.PlayerTakePicture);
+            GameProcess.instance.SetTransition(StateID.ModelControl);
+
         }
         if (Input.GetKeyDown(KeyCode.F4))
         {
-            GameProcess.instance.SetTransition(StateID.LenovoModelRotation);
+            GameProcess.instance.SetTransition(StateID.PlayerTakePicture);
         }
         if (Input.GetKeyDown(KeyCode.F5))
         {
             GameProcess.instance.SetTransition(StateID.Adjustment);
         }
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            ShotToKinectBk();
-        }
+
     }
 
 

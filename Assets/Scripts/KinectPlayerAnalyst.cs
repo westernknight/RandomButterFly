@@ -6,6 +6,7 @@ using Windows.Kinect;
 
 public class KinectPlayerAnalyst : MonoBehaviour
 {
+    public int maxPlayerCount = 2;
     //	// Bool to control whether or not to start Kinect2Server internally
     //public bool startKinectServer = true;
 
@@ -139,6 +140,9 @@ public class KinectPlayerAnalyst : MonoBehaviour
     // Body filter instances
     private JointPositionsFilter jointPositionFilter = null;
     private BoneOrientationsConstraint boneConstraintsFilter = null;
+
+    public Action<Int64> addPlayer;
+    public Action<Int64> removePlayer;
     //private BoneOrientationsFilter boneOrientationFilter = null;
 
     // returns the single KinectManager instance
@@ -1041,8 +1045,9 @@ public class KinectPlayerAnalyst : MonoBehaviour
                     Int64 userId = alUserIds[userIndex];
                     if (isCanUpdateAvatar)
                     {
-                        controller.UpdateAvatar(userId);
-                  
+                       
+                            controller.UpdateAvatar(userId);
+                        
                     }
 
                 }
@@ -1557,11 +1562,14 @@ public class KinectPlayerAnalyst : MonoBehaviour
     {
         if (!alUserIds.Contains(userId))
         {
-            if (CheckForCalibrationPose(userId, bodyIndex, playerCalibrationPose))
+            if (CheckForCalibrationPose(userId, bodyIndex, playerCalibrationPose) && alUserIds.Count < maxPlayerCount)
             {
                 int uidIndex = alUserIds.Count;
                 Debug.Log("Adding user " + uidIndex + ", ID: " + userId + ", Index: " + bodyIndex);
-
+                if (addPlayer!=null)
+                {
+                    addPlayer(userId);
+                }
                 alUserIds.Add(userId);
                 dictUserIdToIndex[userId] = bodyIndex;
 
@@ -1610,7 +1618,10 @@ public class KinectPlayerAnalyst : MonoBehaviour
     {
         int uidIndex = alUserIds.IndexOf(userId);
         Debug.Log("Removing user " + uidIndex + ", ID: " + userId);
-
+        if (removePlayer!=null)
+        {
+            removePlayer(userId);
+        }
         for (int i = 0; i < avatarControllers.Count; i++)
         {
             AvatarController avatar = avatarControllers[i];

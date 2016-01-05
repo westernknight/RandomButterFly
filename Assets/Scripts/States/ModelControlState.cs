@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using System.Collections.Generic;
+using System;
 public class ModelControlState : FSMState
 {
     GameProcess gameProcess;
+    
     public ModelControlState(MonoBehaviour mono)
     {
         stateID = StateID.ModelControl;
@@ -19,9 +21,32 @@ public class ModelControlState : FSMState
         //根据model1的Y轴位置决定地板位置
         Vector3 pos = Utility.StringToVector3(gameProcess.config.model1Position);
         GameObject.Find("TransparentFloor").transform.position = new Vector3(0, pos.y, 0);
+        gameProcess.SetKinectBkShottedPicture();
         //create models; to prepare
-        
-        AddStateAnimation();
+
+
+
+        if (KinectPlayerAnalyst.instance.GetUsersCount()==1)
+        {
+            gameProcess.playerModels[0].SetActive(true);
+            
+        }
+
+        else if (KinectPlayerAnalyst.instance.GetUsersCount() == 2)
+        {
+            gameProcess.playerModels[1].SetActive(true);
+           
+        }
+        gameProcess.playerModels[0].transform.position = Utility.StringToVector3(gameProcess.config.model1Position);
+        gameProcess.playerModels[0].transform.rotation = Quaternion.Euler(0, 180, 0);
+        gameProcess.playerModels[1].transform.position = Utility.StringToVector3(gameProcess.config.model2Position);
+        gameProcess.playerModels[1].transform.rotation = Quaternion.Euler(0, 180, 0);
+
+
+
+        KinectPlayerAnalyst.instance.isCanUpdateAvatar = true;
+        // gameProcess.kinectBkImage.gameObject.SetActive(true);
+        gameProcess.kinectBkImagePlane.SetActive(true);
 
         gameProcess.timeText.gameObject.SetActive(true);
         gameProcess.timeText.ResetAndStart(  (float)gameProcess.config.playModelTime);
@@ -31,24 +56,23 @@ public class ModelControlState : FSMState
     public override void DoBeforeLeaving()
     {
         secondElapse = 0;
-        RemoveStateAnimation();
+        KinectPlayerAnalyst.instance.isCanUpdateAvatar = false;
+
+        gameProcess.kinectBkImagePlane.SetActive(false);
+        gameProcess.timeText.gameObject.SetActive(false);
+        for (int i = 0; i < gameProcess.playerModels.Count; i++)
+        {
+            gameProcess.playerModels[i].SetActive(false);
+        }
     }
     void AddStateAnimation()
     {
-        gameProcess.playerModel1.SetActive(true);
-        gameProcess.playerModel1.transform.position = Utility.StringToVector3(gameProcess.config.model1Position);
-        gameProcess.playerModel1.transform.rotation = Quaternion.Euler(0, 180, 0);
-        KinectPlayerAnalyst.instance.isCanUpdateAvatar = true;
-       // gameProcess.kinectBkImage.gameObject.SetActive(true);
-        gameProcess.kinectBkImagePlane.SetActive(true);
+       
         
     }
     void RemoveStateAnimation()
     {
-        KinectPlayerAnalyst.instance.isCanUpdateAvatar = false;
-       // gameProcess.kinectBkImage.gameObject.SetActive(false);
-        gameProcess.kinectBkImagePlane.SetActive(false);
-
+ 
     }
     public override void Reason(GameObject player, GameObject npc)
     {
@@ -61,5 +85,32 @@ public class ModelControlState : FSMState
     public override void Act(GameObject player, GameObject npc)
     {
         secondElapse += Time.deltaTime;
+        gameProcess.msgText.text = KinectPlayerAnalyst.instance.GetPrimaryUserID().ToString();
+
+
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            Debug.Log("基础人物ID " + KinectPlayerAnalyst.instance.GetPrimaryUserID());
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            Debug.Log("index 0 ID " + KinectPlayerAnalyst.instance.GetUserIdByIndex(0));
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            Debug.Log("index 1 ID " + KinectPlayerAnalyst.instance.GetUserIdByIndex(1));
+        }
+        for (int i = 0; i < gameProcess.playerModels.Count; i++)
+        {
+            gameProcess.playerModels[i].SetActive(false);
+        }
+        foreach (KeyValuePair<Int64, GameObject> kvp in gameProcess.modelMap)
+        {
+            kvp.Value.SetActive(true);
+        }
+
+
+      
+        
     }
 }

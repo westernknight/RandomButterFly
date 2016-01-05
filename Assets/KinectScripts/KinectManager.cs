@@ -1210,7 +1210,11 @@ public class KinectManager : MonoBehaviour
 					Int64 userId = alUserIds[userIndex];
                     if (canUpdateAvatar)
                     {
-                        controller.UpdateAvatar(userId);
+                        if (controller.gameObject.activeSelf)
+                        {
+                            controller.UpdateAvatar(userId);
+                        }
+                        
                     }
 					
 				}
