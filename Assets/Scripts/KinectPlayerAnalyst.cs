@@ -928,9 +928,29 @@ public class KinectPlayerAnalyst : MonoBehaviour
     {
         instance = this;
     }
+    public Dictionary<Int64, AvatarController> modelMap = new Dictionary<Int64, AvatarController>();
     void Start()
     {
         StartCoroutine(InitKinect());
+
+        addPlayer += (Int64 userid) =>
+        {
+            for (int i = 0; i < avatarControllers.Count; i++)
+            {
+                if (avatarControllers[i].machedPlayer == false)
+                {
+                    
+                    modelMap.Add(userid, avatarControllers[i]);
+                    modelMap[userid].machedPlayer = true;
+                    break;
+                }
+            }
+        };
+        removePlayer += (Int64 userid) =>
+        {
+            modelMap[userid].machedPlayer = false;
+            modelMap.Remove(userid);
+        };
     }
     IEnumerator InitKinect()
     {
@@ -1032,26 +1052,43 @@ public class KinectPlayerAnalyst : MonoBehaviour
                 {
                     jointPositionFilter.UpdateFilter(ref bodyFrame);
                 }
+                int bodyCount = KinectInterop.Constants.BodyCount;
+                for (int bodyIndex = 0; bodyIndex < bodyCount; bodyIndex++)
+                {
+                    if (bodyFrame.bodyData[bodyIndex].bIsTracked != 0)
+                    {
+                        Debug.Log(bodyFrame.bodyData[bodyIndex].happyResult+" "+bodyFrame.bodyData[bodyIndex].neutralResult);
+                    }
+                }
+
 
                 ProcessBodyFrameData();
             }
-            for (int i = 0; i < avatarControllers.Count; i++)
+
+            foreach (KeyValuePair<Int64, AvatarController> kvp in modelMap)
             {
-                AvatarController controller = avatarControllers[i];
-                int userIndex = controller.playerIndex;
-
-                if ((userIndex >= 0) && (userIndex < alUserIds.Count))
+                if (isCanUpdateAvatar)
                 {
-                    Int64 userId = alUserIds[userIndex];
-                    if (isCanUpdateAvatar)
-                    {
-                       
-                            controller.UpdateAvatar(userId);
-                        
-                    }
-
+                    kvp.Value.UpdateAvatar(kvp.Key);
                 }
             }
+
+// 
+//             for (int i = 0; i < avatarControllers.Count; i++)
+//             {
+//                 AvatarController controller = avatarControllers[i];
+//                 int userIndex = controller.playerIndex;
+// 
+//                 if ((userIndex >= 0) && (userIndex < alUserIds.Count))
+//                 {
+//                     Int64 userId = alUserIds[userIndex];
+//                     if (isCanUpdateAvatar)
+//                     {
+//                         controller.UpdateAvatar(userId);
+//                     }
+// 
+//                 }
+//             }
 
 
             foreach (Int64 userId in alUserIds)

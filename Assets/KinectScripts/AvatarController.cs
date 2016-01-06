@@ -24,7 +24,8 @@ public class AvatarController : MonoBehaviour
 	
 	// Slerp smooth factor
 	public float SmoothFactor = 10.0f;
-	
+
+    public bool machedPlayer = false;
 	
 	// Public variables that will get matched to bones. If empty, the Kinect will simply not track it.
 	public Transform HipCenter;
