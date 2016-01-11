@@ -84,12 +84,19 @@ public class GameProcess : MonoBehaviour
     void Start()
     {
 
+       
+
+        for (int i = 0; i < playerModels.Count; i++)
+        {
+            playerModels[i].SetActive(false);
+        }
         KinectPlayerAnalyst.instance.addPlayer += (Int64 userid) =>
             {
                 for (int i = 0; i < playerModels.Count; i++)
                 {
                     if (playerModels[i].activeSelf == false)
                     {
+
                         modelMap.Add(userid, playerModels[i]);                        
                         break;
                     }
@@ -97,7 +104,9 @@ public class GameProcess : MonoBehaviour
             };
         KinectPlayerAnalyst.instance.removePlayer += (Int64 userid) =>
         {
+            
             modelMap.Remove(userid);
+            
         };
         FileInfo fi = new FileInfo(Path.Combine(Application.streamingAssetsPath, "config.json"));
         if (fi.Exists)
@@ -136,6 +145,14 @@ public class GameProcess : MonoBehaviour
         StartCoroutine(LoadATexture(config.butterFlyBKImagePath, butterFlyBkImage));
         StartCoroutine(WaitForKinectReady());
 
+    }
+    public GameObject GetModelByUserID(long userid)
+    {
+        if (modelMap.ContainsKey(userid))
+        {
+            return modelMap[userid];
+        }
+        return null;
     }
     public void SaveConfig()
     {
@@ -196,7 +213,6 @@ public class GameProcess : MonoBehaviour
     public IEnumerator ShotToKinectBkEnumerator()
     {
 
-        Debug.LogError("ShotToKinectBkEnumerator");
         if (correctColorImageData == null)
         {
             correctColorImageData = new byte[1920 * 1080 * 4];
@@ -208,7 +224,6 @@ public class GameProcess : MonoBehaviour
             yield return null;
         }
         isShottingThreadRunning = false;
-        Debug.LogError("ShotToKinectBkEnumerator middle");
         if (texShotted == null)
         {
             texShotted = new Texture2D(sensorData.colorImageWidth, sensorData.colorImageHeight, TextureFormat.RGBA32, false);
@@ -227,7 +242,6 @@ public class GameProcess : MonoBehaviour
         texShotted.LoadRawTextureData(correctColorImageData);
         texShotted.Apply();
         kinectBkImage.overrideSprite = Sprite.Create(texShotted, new Rect(0, 0, texShotted.width, texShotted.height), new Vector2(0.5f, 0.5f));
-        Debug.LogError("ShotToKinectBkEnumerator end");
     }
     public void SetKinectBkShottedPicture()
     {
@@ -245,14 +259,20 @@ public class GameProcess : MonoBehaviour
         MakeFSM();
     }
     public void SetTransition(StateID t) { fsm.PerformTransition(t); }
+
+    private Windows.Kinect2.KinectSensor m_pKinectSensor = null;
     private void InitParam()
     {
         //to do
         //lenovoBkImage = GameObject.Find("lenovoBkImage").GetComponent<Image>();
 
-
-
+        m_pKinectSensor = Windows.Kinect2.KinectSensor.GetDefault();
+        if (m_pKinectSensor != null)
+        {
+            
+        }
     }
+  
     private void MakeFSM()
     {
         adjustmentState = new AdjustmentState(this);
@@ -368,7 +388,10 @@ public class GameProcess : MonoBehaviour
         {
             GameProcess.instance.SetTransition(StateID.Adjustment);
         }
-
+        if (Input.GetKeyDown(KeyCode.F6))
+        {
+            Debug.Break();
+        }
     }
 
 

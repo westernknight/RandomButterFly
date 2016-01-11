@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.20506</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{F4AF7F15-DD56-9942-254A-42EB33E196C3}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AssemblyName>Assembly-CSharp</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
+    <CompilerResponseFile></CompilerResponseFile>
+    <UnityProjectType>Game:1</UnityProjectType>
+    <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
+    <UnityVersion>4.6.9f1</UnityVersion>
+    <RootNamespace></RootNamespace>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Temp\UnityVS_bin\Debug\</OutputPath>
+    <IntermediateOutputPath>Temp\UnityVS_obj\Debug\</IntermediateOutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DefineConstants>DEBUG;TRACE;UNITY_4_6_9;UNITY_4_6;UNITY_STANDALONE_WIN;ENABLE_MICROPHONE;ENABLE_TEXTUREID_MAP;ENABLE_UNITYEVENTS;ENABLE_NEW_HIERARCHY ;ENABLE_AUDIO_FMOD;UNITY_STANDALONE;ENABLE_TERRAIN;ENABLE_SUBSTANCE;ENABLE_GENERICS;INCLUDE_IL2CPP;INCLUDE_WP8SUPPORT;ENABLE_MOVIES;ENABLE_WWW;ENABLE_IMAGEEFFECTS;ENABLE_4_6_FEATURES;INCLUDE_WP_BLUE_SUPPORT;ENABLE_WEBCAM;INCLUDE_METROSUPPORT;RENDER_SOFTWARE_CURSOR;ENABLE_NETWORK;ENABLE_PHYSICS;UNITY5_SCRIPTING_IN_UNITY4;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_2D_PHYSICS;ENABLE_SHADOWS;ENABLE_AUDIO;ENABLE_NAVMESH_CARVING;ENABLE_DUCK_TYPING;ENABLE_SINGLE_INSTANCE_BUILD_SETTING;ENABLE_MONO;ENABLE_PROFILER;UNITY_EDITOR;UNITY_EDITOR_WIN;UNITY_TEAM_LICENSE;UNITY_PRO_LICENSE</DefineConstants>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Temp\UnityVS_bin\Release\</OutputPath>
+    <IntermediateOutputPath>Temp\UnityVS_obj\Release\</IntermediateOutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DefineConstants>TRACE;UNITY_4_6_9;UNITY_4_6;UNITY_STANDALONE_WIN;ENABLE_MICROPHONE;ENABLE_TEXTUREID_MAP;ENABLE_UNITYEVENTS;ENABLE_NEW_HIERARCHY ;ENABLE_AUDIO_FMOD;UNITY_STANDALONE;ENABLE_TERRAIN;ENABLE_SUBSTANCE;ENABLE_GENERICS;INCLUDE_IL2CPP;INCLUDE_WP8SUPPORT;ENABLE_MOVIES;ENABLE_WWW;ENABLE_IMAGEEFFECTS;ENABLE_4_6_FEATURES;INCLUDE_WP_BLUE_SUPPORT;ENABLE_WEBCAM;INCLUDE_METROSUPPORT;RENDER_SOFTWARE_CURSOR;ENABLE_NETWORK;ENABLE_PHYSICS;UNITY5_SCRIPTING_IN_UNITY4;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_2D_PHYSICS;ENABLE_SHADOWS;ENABLE_AUDIO;ENABLE_NAVMESH_CARVING;ENABLE_DUCK_TYPING;ENABLE_SINGLE_INSTANCE_BUILD_SETTING;ENABLE_MONO;ENABLE_PROFILER;UNITY_EDITOR;UNITY_EDITOR_WIN;UNITY_TEAM_LICENSE;UNITY_PRO_LICENSE</DefineConstants>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="mscorlib" />
+    <Reference Include="System" />
+    <Reference Include="System.XML" />
+    <Reference Include="System.Core" />
+    <Reference Include="Boo.Lang" />
+    <Reference Include="UnityScript.Lang" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="UnityEditor">
+      <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine">
+      <HintPath>Library\UnityAssemblies\UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>Library\UnityAssemblies\UnityEngine.UI.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="UnityVS.trunk.CSharp.Plugins.csproj">
+      <Project>{D0EC3815-625E-EC2D-0C64-4FAA7C10B7C9}</Project>
+      <Name>UnityVS.trunk.CSharp.Plugins</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Assets\FinalIK\IK Components\FullBodyBipedIK.cs" />
+    <Compile Include="Assets\FinalIK\IK Components\IK.cs" />
+    <Compile Include="Assets\FinalIK\IK Solvers\FBIKChain.cs" />
+    <Compile Include="Assets\FinalIK\IK Solvers\IKConstraintBend.cs" />
+    <Compile Include="Assets\FinalIK\IK Solvers\IKEffector.cs" />
+    <Compile Include="Assets\FinalIK\IK Solvers\IKMapping.cs" />
+    <Compile Include="Assets\FinalIK\IK Solvers\IKMappingBone.cs" />
+    <Compile Include="Assets\FinalIK\IK Solvers\IKMappingLimb.cs" />
+    <Compile Include="Assets\FinalIK\IK Solvers\IKMappingSpine.cs" />
+    <Compile Include="Assets\FinalIK\IK Solvers\IKSolver.cs" />
+    <Compile Include="Assets\FinalIK\IK Solvers\IKSolverFullBody.cs" />
+    <Compile Include="Assets\FinalIK\IK Solvers\IKSolverFullBodyBiped.cs" />
+    <Compile Include="Assets\FinalIK\IK Solvers\SolverManager.cs" />
+    <Compile Include="Assets\FinalIK\Scripts\BipedLimbOrientations.cs" />
+    <Compile Include="Assets\FinalIK\Scripts\BipedNaming.cs" />
+    <Compile Include="Assets\FinalIK\Scripts\BipedReferences.cs" />
+    <Compile Include="Assets\FinalIK\Scripts\Hierarchy.cs" />
+    <Compile Include="Assets\FinalIK\Scripts\QuaTools.cs" />
+    <Compile Include="Assets\FinalIK\Scripts\V3Tools.cs" />
+    <Compile Include="Assets\FinalIK\Scripts\Warning.cs" />
+    <Compile Include="Assets\GesturesDemo\Scripts\GestureListener.cs" />
+    <Compile Include="Assets\GesturesDemo\Scripts\PresentationScript.cs" />
+    <Compile Include="Assets\InteractionDemo\Scripts\GrabDropScript.cs" />
+    <Compile Include="Assets\InteractionDemo\Scripts\GuiWindowScript.cs" />
+    <Compile Include="Assets\KinectScripts\AvatarController.cs" />
+    <Compile Include="Assets\KinectScripts\Cubeman\CubemanController.cs" />
+    <Compile Include="Assets\KinectScripts\Cubeman\CubemanController_M.cs" />
+    <Compile Include="Assets\KinectScripts\Extras\LoadMainLevel.cs" />
+    <Compile Include="Assets\KinectScripts\Extras\MouseControl.cs" />
+    <Compile Include="Assets\KinectScripts\Extras\SetSceneAvatars.cs" />
+    <Compile Include="Assets\KinectScripts\Extras\SimpleGestureListener.cs" />
+    <Compile Include="Assets\KinectScripts\Filters\BoneOrientationsConstraint.cs" />
+    <Compile Include="Assets\KinectScripts\Filters\JointPositionsFilter.cs" />
+    <Compile Include="Assets\KinectScripts\InteractionManager.cs" />
+    <Compile Include="Assets\KinectScripts\KinectGestures.cs" />
+    <Compile Include="Assets\KinectScripts\KinectInterop.cs" />
+    <Compile Include="Assets\KinectScripts\KinectManager.cs" />
+    <Compile Include="Assets\KinectScripts\KinectServer.cs" />
+    <Compile Include="Assets\LitJson\IJsonWrapper.cs" />
+    <Compile Include="Assets\LitJson\JsonData.cs" />
+    <Compile Include="Assets\LitJson\JsonException.cs" />
+    <Compile Include="Assets\LitJson\JsonMapper.cs" />
+    <Compile Include="Assets\LitJson\JsonMockWrapper.cs" />
+    <Compile Include="Assets\LitJson\JsonReader.cs" />
+    <Compile Include="Assets\LitJson\JsonWriter.cs" />
+    <Compile Include="Assets\LitJson\Lexer.cs" />
+    <Compile Include="Assets\LitJson\ParserToken.cs" />
+    <Compile Include="Assets\Scripts\AvatarHierarchy.cs" />
+    <Compile Include="Assets\Scripts\AvatarNaming.cs" />
+    <Compile Include="Assets\Scripts\DebugLogRedirect.cs" />
+    <Compile Include="Assets\Scripts\FSMSystem.cs" />
+    <Compile Include="Assets\Scripts\GConsoleCore.cs" />
+    <Compile Include="Assets\Scripts\GameProcess.cs" />
+    <Compile Include="Assets\Scripts\GlobalStructure.cs" />
+    <Compile Include="Assets\Scripts\IKController.cs" />
+    <Compile Include="Assets\Scripts\KinectModelCreator.cs" />
+    <Compile Include="Assets\Scripts\KinectPlayerAnalyst.cs" />
+    <Compile Include="Assets\Scripts\KinectSensorManager.cs" />
+    <Compile Include="Assets\Scripts\LateRotationFollow.cs" />
+    <Compile Include="Assets\Scripts\LeanTween.cs" />
+    <Compile Include="Assets\Scripts\LenovoGestureListener.cs" />
+    <Compile Include="Assets\Scripts\RotationCopy.cs" />
+    <Compile Include="Assets\Scripts\SpecialController.cs" />
+    <Compile Include="Assets\Scripts\States\AdjustmentState.cs" />
+    <Compile Include="Assets\Scripts\States\ButterFlyState.cs" />
+    <Compile Include="Assets\Scripts\States\LenovoModelRotationState.cs" />
+    <Compile Include="Assets\Scripts\States\ModelControlState.cs" />
+    <Compile Include="Assets\Scripts\States\PlayerTakePictureState.cs" />
+    <Compile Include="Assets\Scripts\TimeCounter.cs" />
+    <Compile Include="Assets\Scripts\TransformCopy.cs" />
+    <Compile Include="Assets\_Test\ParticleButterfly.cs" />
+    <Compile Include="Assets\_Test\ParticleController.cs" />
+    <Compile Include="Assets\_Test\test.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Shaders\Transparent.shader" />
+    <None Include="Assets\Shaders\TransparentDiffuse.shader" />
+    <None Include="Assets\Shaders\TransparentShadowShader.shader" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2013\UnityVS.CSharp.targets" />
+</Project>

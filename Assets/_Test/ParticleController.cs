@@ -17,7 +17,7 @@ public class ParticleController : MonoBehaviour
 
     //shape
     public float angle = 25;
-
+    public float scale = 1;
     public float playbackSpeed = 1;
     public float playbackTime = 0;
     public GameObject butterflyPrefab;
@@ -31,6 +31,7 @@ public class ParticleController : MonoBehaviour
         {
             particlePool.Add(GameObject.Instantiate(butterflyPrefab) as GameObject);
             particlePool[i].transform.parent = transform;
+            particlePool[i].transform.localScale = Vector3.one * scale; 
             particlePool[i].SetActive(false);
         }
     }
@@ -78,7 +79,8 @@ public class ParticleController : MonoBehaviour
              
                 go.transform.parent = transform;
                 go.transform.position = transform.position;
-                go.transform.rotation = Quaternion.Euler(transform.forward.x + Random.Range(-angle, angle), transform.forward.y + Random.Range(-angle, angle), transform.forward.z);
+                Quaternion q = transform.rotation;
+                go.transform.rotation = Quaternion.Euler(/*transform.forward.x*/ q.eulerAngles.x + Random.Range(-angle, angle), q.eulerAngles.y + Random.Range(-angle, angle), q.eulerAngles.z);
                 ParticleButterfly pb = go.GetComponent<ParticleButterfly>();
                 pb.life = startLife;
                 particles.Add(go.GetComponent<ParticleButterfly>());

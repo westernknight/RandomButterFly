@@ -22,7 +22,10 @@ public class DebugFunctionEditor : EditorWindow
     {
         globalScrollPosition = GUILayout.BeginScrollView(globalScrollPosition, new GUILayoutOption[0]);
         EditorGUILayout.HelpBox("村长:Application must in play mode", MessageType.Info);
-
+        if (GUILayout.Button("Print persistentDataPath"))
+        {
+            Debug.Log(Application.persistentDataPath);
+        }
         if (GUILayout.Button("Print VecToStr"))
         {
             Debug.Log(Utility.Vector3ToString(Vector3.right));

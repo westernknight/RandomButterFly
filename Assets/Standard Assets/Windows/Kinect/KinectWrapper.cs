@@ -684,7 +684,7 @@ namespace Windows.Kinect
 			
 			return obj;
 		}
-		
+     
 		
 		// Public Methods
 		[RootSystem.Runtime.InteropServices.DllImport("KinectForUnity", CallingConvention=RootSystem.Runtime.InteropServices.CallingConvention.Cdecl)]

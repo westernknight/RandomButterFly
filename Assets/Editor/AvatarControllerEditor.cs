@@ -18,5 +18,11 @@ public class AvatarControllerEditor : Editor
             _target.AutoDetectReferences();
 
         }
+
+        if (GUILayout.Button("cube"))
+        {
+            _target.CreateIkCube();
+        }
+
     }
 }

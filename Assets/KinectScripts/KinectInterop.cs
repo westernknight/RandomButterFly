@@ -796,8 +796,8 @@ public class KinectInterop
 						bodyFrame.bodyData[i].leftHandState = body.HandLeftState;
 						bodyFrame.bodyData[i].leftHandConfidence = body.HandLeftConfidence;
 
-                        bodyFrame.bodyData[i].happyResult = body.Expressions[Expression.Happy];
-                        bodyFrame.bodyData[i].neutralResult = body.Expressions[Expression.Neutral];
+                        //bodyFrame.bodyData[i].happyResult = body.Expressions[Expression.Happy];
+                        //bodyFrame.bodyData[i].neutralResult = body.Expressions[Expression.Neutral];
 
 						bodyFrame.bodyData[i].rightHandState = body.HandRightState;
 						bodyFrame.bodyData[i].rightHandConfidence = body.HandRightConfidence;

@@ -1052,14 +1052,6 @@ public class KinectPlayerAnalyst : MonoBehaviour
                 {
                     jointPositionFilter.UpdateFilter(ref bodyFrame);
                 }
-                int bodyCount = KinectInterop.Constants.BodyCount;
-                for (int bodyIndex = 0; bodyIndex < bodyCount; bodyIndex++)
-                {
-                    if (bodyFrame.bodyData[bodyIndex].bIsTracked != 0)
-                    {
-                        Debug.Log(bodyFrame.bodyData[bodyIndex].happyResult+" "+bodyFrame.bodyData[bodyIndex].neutralResult);
-                    }
-                }
 
 
                 ProcessBodyFrameData();

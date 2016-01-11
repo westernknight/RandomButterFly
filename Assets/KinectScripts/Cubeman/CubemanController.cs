@@ -115,8 +115,8 @@ public class CubemanController : MonoBehaviour
 
 	void Update () 
 	{
-		KinectManager manager = KinectManager.Instance;
-		
+		//KinectManager manager = KinectManager.Instance;
+        KinectPlayerAnalyst manager = KinectPlayerAnalyst.instance;
 		// get 1st player
 		Int64 userID = manager ? manager.GetPrimaryUserID() : 0;
 		

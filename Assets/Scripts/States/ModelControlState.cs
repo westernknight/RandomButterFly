@@ -5,13 +5,13 @@ using System;
 public class ModelControlState : FSMState
 {
     GameProcess gameProcess;
-    
+
     public ModelControlState(MonoBehaviour mono)
     {
         stateID = StateID.ModelControl;
         this.mono = mono;
         gameProcess = mono as GameProcess;
-      
+
     }
     public float secondElapse = 0;
     public override void DoBeforeEntering()
@@ -26,33 +26,62 @@ public class ModelControlState : FSMState
 
 
 
-        if (KinectPlayerAnalyst.instance.GetUsersCount()==1)
+        if (KinectPlayerAnalyst.instance.GetUsersCount() == 1)
         {
             gameProcess.playerModels[0].SetActive(true);
-            
+
         }
 
         else if (KinectPlayerAnalyst.instance.GetUsersCount() == 2)
         {
             gameProcess.playerModels[1].SetActive(true);
-           
+
         }
-        gameProcess.playerModels[0].transform.position = Utility.StringToVector3(gameProcess.config.model1Position);
-        gameProcess.playerModels[0].transform.rotation = Quaternion.Euler(0, 180, 0);
-        gameProcess.playerModels[1].transform.position = Utility.StringToVector3(gameProcess.config.model2Position);
-        gameProcess.playerModels[1].transform.rotation = Quaternion.Euler(0, 180, 0);
-
-
+        for (int i = 0; i < gameProcess.playerModels.Count; i++)
+        {
+            gameProcess.playerModels[i].transform.position = Utility.StringToVector3(gameProcess.config.model1Position);
+                                     
+            gameProcess.playerModels[i].GetComponent<RotationCopy>().InitPosition(gameProcess.playerModels[0].transform.position);
+            gameProcess.playerModels[i].transform.rotation = Quaternion.Euler(0, 180, 0);
+        }
 
         KinectPlayerAnalyst.instance.isCanUpdateAvatar = true;
         // gameProcess.kinectBkImage.gameObject.SetActive(true);
         gameProcess.kinectBkImagePlane.SetActive(true);
 
         gameProcess.timeText.gameObject.SetActive(true);
-        gameProcess.timeText.ResetAndStart(  (float)gameProcess.config.playModelTime);
+        gameProcess.timeText.ResetAndStart((float)gameProcess.config.playModelTime);
+
+        foreach (KeyValuePair<Int64, GameObject> kvp in gameProcess.modelMap)
+        {
+            kvp.Value.SetActive(true);
+        }
+        KinectPlayerAnalyst.instance.addPlayer += AddUser;
+        KinectPlayerAnalyst.instance.removePlayer += RemoveUser;
 
     }
-  
+    void AddUser(Int64 userid)
+    {
+        for (int i = 0; i < gameProcess.playerModels.Count; i++)
+        {
+            gameProcess.playerModels[i].SetActive(false);
+        }
+        foreach (KeyValuePair<Int64, GameObject> kvp in gameProcess.modelMap)
+        {
+            kvp.Value.SetActive(true);
+        }
+    }
+    void RemoveUser(Int64 userid)
+    {
+        for (int i = 0; i < gameProcess.playerModels.Count; i++)
+        {
+            gameProcess.playerModels[i].SetActive(false);
+        }
+        foreach (KeyValuePair<Int64, GameObject> kvp in gameProcess.modelMap)
+        {
+            kvp.Value.SetActive(true);
+        }
+    }
     public override void DoBeforeLeaving()
     {
         secondElapse = 0;
@@ -64,15 +93,17 @@ public class ModelControlState : FSMState
         {
             gameProcess.playerModels[i].SetActive(false);
         }
+        KinectPlayerAnalyst.instance.addPlayer -= AddUser;
+        KinectPlayerAnalyst.instance.removePlayer -= RemoveUser;
     }
     void AddStateAnimation()
     {
-       
-        
+
+
     }
     void RemoveStateAnimation()
     {
- 
+
     }
     public override void Reason(GameObject player, GameObject npc)
     {
@@ -85,7 +116,7 @@ public class ModelControlState : FSMState
     public override void Act(GameObject player, GameObject npc)
     {
         secondElapse += Time.deltaTime;
-        gameProcess.msgText.text = KinectPlayerAnalyst.instance.GetPrimaryUserID().ToString();
+        //gameProcess.msgText.text = KinectPlayerAnalyst.instance.GetPrimaryUserID().ToString();
 
 
         if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -100,17 +131,13 @@ public class ModelControlState : FSMState
         {
             Debug.Log("index 1 ID " + KinectPlayerAnalyst.instance.GetUserIdByIndex(1));
         }
-        for (int i = 0; i < gameProcess.playerModels.Count; i++)
-        {
-            gameProcess.playerModels[i].SetActive(false);
-        }
-        foreach (KeyValuePair<Int64, GameObject> kvp in gameProcess.modelMap)
-        {
-            kvp.Value.SetActive(true);
-        }
 
-
-      
+        if (KinectPlayerAnalyst.instance.GetPrimaryUserID()!=0)
+        {
+            gameProcess.msgText.text = KinectPlayerAnalyst.instance.GetUserPosition(KinectPlayerAnalyst.instance.GetPrimaryUserID()).ToString();
+        }
         
+
+
     }
 }

@@ -1,0 +1,648 @@
+fileFormatVersion: 2
+guid: 66bdbe847dccdbc4ea782999995b84af
+ModelImporter:
+  serializedVersion: 16
+  fileIDToRecycleName:
+    100000: Ankle_L
+    100002: Ankle_R
+    100004: BackA_M
+    100006: BackB_M
+    100008: BigToe_L
+    100010: BigToe_R
+    100012: body
+    100014: C_LowerLip_joint1
+    100016: C_UpperLip_joint1
+    100018: Chest_M
+    100020: Cup_L
+    100022: Cup_R
+    100024: Elbow_L
+    100026: Elbow_R
+    100028: Eye1_L
+    100030: Eye1_R
+    100032: Eye_L
+    100034: Eye_R
+    100036: Hair_M
+    100038: Head_M
+    100040: Hip_L
+    100042: Hip_R
+    100044: Jaw_M
+    100046: JawEnd_M
+    100048: Knee_L
+    100050: Knee_R
+    100052: L_Corner_joint1
+    100054: L_LowerLip_joint1
+    100056: L_UpperLip_joint1
+    100058: LDn_Eyelash_joint
+    100060: lower_teeth
+    100062: LUp_Eyelash_joint
+    100064: MiddleFinger1_L
+    100066: MiddleFinger1_R
+    100068: MiddleFinger2_L
+    100070: MiddleFinger2_R
+    100072: MiddleFinger3_L
+    100074: MiddleFinger3_R
+    100076: MiddleFinger4_L
+    100078: MiddleFinger4_R
+    100080: MiddleToe1_L
+    100082: MiddleToe1_R
+    100084: MiddleToe2_L
+    100086: MiddleToe2_R
+    100088: minion_tongue
+    100090: Neck_M
+    100092: pCube10
+    100094: pCube11
+    100096: pCube12
+    100098: pCube13
+    100100: pCube14
+    100102: pCube15
+    100104: pCube16
+    100106: pCube17
+    100108: pCube2
+    100110: pCube3
+    100112: pCube4
+    100114: pCube5
+    100116: pCube6
+    100118: pCube7
+    100120: pCube8
+    100122: pCube9
+    100124: pCylinder1
+    100126: pCylinder2
+    100128: PinkyToe_L
+    100130: PinkyToe_R
+    100132: R_Corner_joint1
+    100134: R_LowerLip_joint1
+    100136: R_UpperLip_joint1
+    100138: RDn_Eyelash_joint
+    100140: right_eye
+    100142: right_eye1
+    100144: right_eye_black
+    100146: right_eye_black1
+    100148: right_eye_front
+    100150: right_eye_front1
+    100152: right_eye_iris
+    100154: right_eye_iris1
+    100156: RingFinger1_L
+    100158: RingFinger1_R
+    100160: RingFinger2_L
+    100162: RingFinger2_R
+    100164: RingFinger3_L
+    100166: RingFinger3_R
+    100168: RingFinger4_L
+    100170: RingFinger4_R
+    100172: Root_M
+    100174: RUp_Eyelash_joint
+    100176: Scapula_L
+    100178: Scapula_R
+    100180: Shoulder_L
+    100182: Shoulder_R
+    100184: SkinJointGrps
+    100186: ThumbFinger1_L
+    100188: ThumbFinger1_R
+    100190: ThumbFinger2_L
+    100192: ThumbFinger2_R
+    100194: ThumbFinger3_L
+    100196: ThumbFinger3_R
+    100198: ThumbFinger4_L
+    100200: ThumbFinger4_R
+    100202: toufa
+    100204: upper_teeth
+    100206: Wrist_L
+    100208: Wrist_R
+    100210: XHR_Model
+    100212: //RootNode
+    100214: yanjing
+    100216: yanjing_MeshPart0
+    100218: yanjing_MeshPart1
+    100220: yanpi002
+    100222: yanpi003
+    100224: yanpi004
+    100226: yanpi005
+    100228: yifu
+    100230: youjiao
+    100232: youshou
+    100234: zuojiao
+    100236: zuoshou
+    400000: Ankle_L
+    400002: Ankle_R
+    400004: BackA_M
+    400006: BackB_M
+    400008: BigToe_L
+    400010: BigToe_R
+    400012: body
+    400014: C_LowerLip_joint1
+    400016: C_UpperLip_joint1
+    400018: Chest_M
+    400020: Cup_L
+    400022: Cup_R
+    400024: Elbow_L
+    400026: Elbow_R
+    400028: Eye1_L
+    400030: Eye1_R
+    400032: Eye_L
+    400034: Eye_R
+    400036: Hair_M
+    400038: Head_M
+    400040: Hip_L
+    400042: Hip_R
+    400044: Jaw_M
+    400046: JawEnd_M
+    400048: Knee_L
+    400050: Knee_R
+    400052: L_Corner_joint1
+    400054: L_LowerLip_joint1
+    400056: L_UpperLip_joint1
+    400058: LDn_Eyelash_joint
+    400060: lower_teeth
+    400062: LUp_Eyelash_joint
+    400064: MiddleFinger1_L
+    400066: MiddleFinger1_R
+    400068: MiddleFinger2_L
+    400070: MiddleFinger2_R
+    400072: MiddleFinger3_L
+    400074: MiddleFinger3_R
+    400076: MiddleFinger4_L
+    400078: MiddleFinger4_R
+    400080: MiddleToe1_L
+    400082: MiddleToe1_R
+    400084: MiddleToe2_L
+    400086: MiddleToe2_R
+    400088: minion_tongue
+    400090: Neck_M
+    400092: pCube10
+    400094: pCube11
+    400096: pCube12
+    400098: pCube13
+    400100: pCube14
+    400102: pCube15
+    400104: pCube16
+    400106: pCube17
+    400108: pCube2
+    400110: pCube3
+    400112: pCube4
+    400114: pCube5
+    400116: pCube6
+    400118: pCube7
+    400120: pCube8
+    400122: pCube9
+    400124: pCylinder1
+    400126: pCylinder2
+    400128: PinkyToe_L
+    400130: PinkyToe_R
+    400132: R_Corner_joint1
+    400134: R_LowerLip_joint1
+    400136: R_UpperLip_joint1
+    400138: RDn_Eyelash_joint
+    400140: right_eye
+    400142: right_eye1
+    400144: right_eye_black
+    400146: right_eye_black1
+    400148: right_eye_front
+    400150: right_eye_front1
+    400152: right_eye_iris
+    400154: right_eye_iris1
+    400156: RingFinger1_L
+    400158: RingFinger1_R
+    400160: RingFinger2_L
+    400162: RingFinger2_R
+    400164: RingFinger3_L
+    400166: RingFinger3_R
+    400168: RingFinger4_L
+    400170: RingFinger4_R
+    400172: Root_M
+    400174: RUp_Eyelash_joint
+    400176: Scapula_L
+    400178: Scapula_R
+    400180: Shoulder_L
+    400182: Shoulder_R
+    400184: SkinJointGrps
+    400186: ThumbFinger1_L
+    400188: ThumbFinger1_R
+    400190: ThumbFinger2_L
+    400192: ThumbFinger2_R
+    400194: ThumbFinger3_L
+    400196: ThumbFinger3_R
+    400198: ThumbFinger4_L
+    400200: ThumbFinger4_R
+    400202: toufa
+    400204: upper_teeth
+    400206: Wrist_L
+    400208: Wrist_R
+    400210: XHR_Model
+    400212: //RootNode
+    400214: yanjing
+    400216: yanjing_MeshPart0
+    400218: yanjing_MeshPart1
+    400220: yanpi002
+    400222: yanpi003
+    400224: yanpi004
+    400226: yanpi005
+    400228: yifu
+    400230: youjiao
+    400232: youshou
+    400234: zuojiao
+    400236: zuoshou
+    4300000: toufa
+    4300002: right_eye
+    4300004: right_eye_iris
+    4300006: right_eye_black
+    4300008: right_eye_front
+    4300010: yanjing_MeshPart0
+    4300012: yanjing_MeshPart1
+    4300014: pCylinder1
+    4300016: pCylinder2
+    4300018: yifu
+    4300020: body
+    4300022: minion_tongue
+    4300024: lower_teeth
+    4300026: pCube6
+    4300028: pCube5
+    4300030: pCube4
+    4300032: pCube2
+    4300034: pCube3
+    4300036: pCube7
+    4300038: pCube8
+    4300040: pCube9
+    4300042: upper_teeth
+    4300044: pCube17
+    4300046: pCube16
+    4300048: pCube15
+    4300050: pCube11
+    4300052: pCube10
+    4300054: pCube12
+    4300056: pCube13
+    4300058: pCube14
+    4300060: yanpi002
+    4300062: yanpi003
+    4300064: zuoshou
+    4300066: youshou
+    4300068: zuojiao
+    4300070: youjiao
+    4300072: yanpi005
+    4300074: yanpi004
+    4300076: right_eye_front1
+    4300078: right_eye_iris1
+    4300080: right_eye1
+    4300082: right_eye_black1
+    7400000: Take 001
+    9500000: //RootNode
+    11100000: //RootNode
+    13700000: body
+    13700002: lower_teeth
+    13700004: minion_tongue
+    13700006: pCube10
+    13700008: pCube11
+    13700010: pCube12
+    13700012: pCube13
+    13700014: pCube14
+    13700016: pCube15
+    13700018: pCube16
+    13700020: pCube17
+    13700022: pCube2
+    13700024: pCube3
+    13700026: pCube4
+    13700028: pCube5
+    13700030: pCube6
+    13700032: pCube7
+    13700034: pCube8
+    13700036: pCube9
+    13700038: pCylinder1
+    13700040: pCylinder2
+    13700042: right_eye
+    13700044: right_eye1
+    13700046: right_eye_black
+    13700048: right_eye_black1
+    13700050: right_eye_front
+    13700052: right_eye_front1
+    13700054: right_eye_iris
+    13700056: right_eye_iris1
+    13700058: toufa
+    13700060: upper_teeth
+    13700062: yanjing_MeshPart0
+    13700064: yanjing_MeshPart1
+    13700066: yanpi002
+    13700068: yanpi003
+    13700070: yanpi004
+    13700072: yanpi005
+    13700074: yifu
+    13700076: youjiao
+    13700078: youshou
+    13700080: zuojiao
+    13700082: zuoshou
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationCompression: 3
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Take 001
+      takeName: Take 001
+      firstFrame: 1
+      lastFrame: 24
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: SkinJointGrps
+        weight: 1
+      - path: SkinJointGrps/Root_M
+        weight: 1
+      - path: SkinJointGrps/Root_M/BackA_M
+        weight: 1
+      - path: SkinJointGrps/Root_M/BackA_M/BackB_M
+        weight: 1
+      - path: SkinJointGrps/Root_M/BackA_M/BackB_M/Chest_M
+        weight: 1
+      - path: SkinJointGrps/Root_M/BackA_M/BackB_M/Chest_M/Neck_M
+        weight: 1
+      - path: SkinJointGrps/Root_M/BackA_M/BackB_M/Chest_M/Neck_M/Head_M
+        weight: 1
+      - path: SkinJointGrps/Root_M/BackA_M/BackB_M/Chest_M/Neck_M/Head_M/C_LowerLip_joint1
+        weight: 1
+      - path: SkinJointGrps/Root_M/BackA_M/BackB_M/Chest_M/Neck_M/Head_M/C_UpperLip_joint1
+        weight: 1
+      - path: SkinJointGrps/Root_M/BackA_M/BackB_M/Chest_M/Neck_M/Head_M/Eye_L
+        weight: 1
+      - path: SkinJointGrps/Root_M/BackA_M/BackB_M/Chest_M/Neck_M/Head_M/Eye_L/Eye1_L
+        weight: 1
+      - path: SkinJointGrps/Root_M/BackA_M/BackB_M/Chest_M/Neck_M/Head_M/Eye_R
+        weight: 1
+      - path: SkinJointGrps/Root_M/BackA_M/BackB_M/Chest_M/Neck_M/Head_M/Eye_R/Eye1_R
+        weight: 1
+      - path: SkinJointGrps/Root_M/BackA_M/BackB_M/Chest_M/Neck_M/Head_M/Hair_M
+        weight: 1
+      - path: SkinJointGrps/Root_M/BackA_M/BackB_M/Chest_M/Neck_M/Head_M/Jaw_M
+        weight: 1
+      - path: SkinJointGrps/Root_M/BackA_M/BackB_M/Chest_M/Neck_M/Head_M/Jaw_M/JawEnd_M
+        weight: 1
+      - path: SkinJointGrps/Root_M/BackA_M/BackB_M/Chest_M/Neck_M/Head_M/L_Corner_joint1
+        weight: 1
+      - path: SkinJointGrps/Root_M/BackA_M/BackB_M/Chest_M/Neck_M/Head_M/L_LowerLip_joint1
+        weight: 1
+      - path: SkinJointGrps/Root_M/BackA_M/BackB_M/Chest_M/Neck_M/Head_M/L_UpperLip_joint1
+        weight: 1
+      - path: SkinJointGrps/Root_M/BackA_M/BackB_M/Chest_M/Neck_M/Head_M/LDn_Eyelash_joint
+        weight: 1
+      - path: SkinJointGrps/Root_M/BackA_M/BackB_M/Chest_M/Neck_M/Head_M/LUp_Eyelash_joint
+        weight: 1
+      - path: SkinJointGrps/Root_M/BackA_M/BackB_M/Chest_M/Neck_M/Head_M/R_Corner_joint1
+        weight: 1
+      - path: SkinJointGrps/Root_M/BackA_M/BackB_M/Chest_M/Neck_M/Head_M/R_LowerLip_joint1
+        weight: 1
+      - path: SkinJointGrps/Root_M/BackA_M/BackB_M/Chest_M/Neck_M/Head_M/R_UpperLip_joint1
+        weight: 1
+      - path: SkinJointGrps/Root_M/BackA_M/BackB_M/Chest_M/Neck_M/Head_M/RDn_Eyelash_joint
+        weight: 1
+      - path: SkinJointGrps/Root_M/BackA_M/BackB_M/Chest_M/Neck_M/Head_M/RUp_Eyelash_joint
+        weight: 1
+      - path: SkinJointGrps/Root_M/BackA_M/BackB_M/Chest_M/Scapula_L
+        weight: 1
+      - path: SkinJointGrps/Root_M/BackA_M/BackB_M/Chest_M/Scapula_L/Shoulder_L
+        weight: 1
+      - path: SkinJointGrps/Root_M/BackA_M/BackB_M/Chest_M/Scapula_L/Shoulder_L/Elbow_L
+        weight: 1
+      - path: SkinJointGrps/Root_M/BackA_M/BackB_M/Chest_M/Scapula_L/Shoulder_L/Elbow_L/Wrist_L
+        weight: 1
+      - path: SkinJointGrps/Root_M/BackA_M/BackB_M/Chest_M/Scapula_L/Shoulder_L/Elbow_L/Wrist_L/Cup_L
+        weight: 1
+      - path: SkinJointGrps/Root_M/BackA_M/BackB_M/Chest_M/Scapula_L/Shoulder_L/Elbow_L/Wrist_L/Cup_L/RingFinger1_L
+        weight: 1
+      - path: SkinJointGrps/Root_M/BackA_M/BackB_M/Chest_M/Scapula_L/Shoulder_L/Elbow_L/Wrist_L/Cup_L/RingFinger1_L/RingFinger2_L
+        weight: 1
+      - path: SkinJointGrps/Root_M/BackA_M/BackB_M/Chest_M/Scapula_L/Shoulder_L/Elbow_L/Wrist_L/Cup_L/RingFinger1_L/RingFinger2_L/RingFinger3_L
+        weight: 1
+      - path: SkinJointGrps/Root_M/BackA_M/BackB_M/Chest_M/Scapula_L/Shoulder_L/Elbow_L/Wrist_L/Cup_L/RingFinger1_L/RingFinger2_L/RingFinger3_L/RingFinger4_L
+        weight: 1
+      - path: SkinJointGrps/Root_M/BackA_M/BackB_M/Chest_M/Scapula_L/Shoulder_L/Elbow_L/Wrist_L/MiddleFinger1_L
+        weight: 1
+      - path: SkinJointGrps/Root_M/BackA_M/BackB_M/Chest_M/Scapula_L/Shoulder_L/Elbow_L/Wrist_L/MiddleFinger1_L/MiddleFinger2_L
+        weight: 1
+      - path: SkinJointGrps/Root_M/BackA_M/BackB_M/Chest_M/Scapula_L/Shoulder_L/Elbow_L/Wrist_L/MiddleFinger1_L/MiddleFinger2_L/MiddleFinger3_L
+        weight: 1
+      - path: SkinJointGrps/Root_M/BackA_M/BackB_M/Chest_M/Scapula_L/Shoulder_L/Elbow_L/Wrist_L/MiddleFinger1_L/MiddleFinger2_L/MiddleFinger3_L/MiddleFinger4_L
+        weight: 1
+      - path: SkinJointGrps/Root_M/BackA_M/BackB_M/Chest_M/Scapula_L/Shoulder_L/Elbow_L/Wrist_L/ThumbFinger1_L
+        weight: 1
+      - path: SkinJointGrps/Root_M/BackA_M/BackB_M/Chest_M/Scapula_L/Shoulder_L/Elbow_L/Wrist_L/ThumbFinger1_L/ThumbFinger2_L
+        weight: 1
+      - path: SkinJointGrps/Root_M/BackA_M/BackB_M/Chest_M/Scapula_L/Shoulder_L/Elbow_L/Wrist_L/ThumbFinger1_L/ThumbFinger2_L/ThumbFinger3_L
+        weight: 1
+      - path: SkinJointGrps/Root_M/BackA_M/BackB_M/Chest_M/Scapula_L/Shoulder_L/Elbow_L/Wrist_L/ThumbFinger1_L/ThumbFinger2_L/ThumbFinger3_L/ThumbFinger4_L
+        weight: 1
+      - path: SkinJointGrps/Root_M/BackA_M/BackB_M/Chest_M/Scapula_R
+        weight: 1
+      - path: SkinJointGrps/Root_M/BackA_M/BackB_M/Chest_M/Scapula_R/Shoulder_R
+        weight: 1
+      - path: SkinJointGrps/Root_M/BackA_M/BackB_M/Chest_M/Scapula_R/Shoulder_R/Elbow_R
+        weight: 1
+      - path: SkinJointGrps/Root_M/BackA_M/BackB_M/Chest_M/Scapula_R/Shoulder_R/Elbow_R/Wrist_R
+        weight: 1
+      - path: SkinJointGrps/Root_M/BackA_M/BackB_M/Chest_M/Scapula_R/Shoulder_R/Elbow_R/Wrist_R/Cup_R
+        weight: 1
+      - path: SkinJointGrps/Root_M/BackA_M/BackB_M/Chest_M/Scapula_R/Shoulder_R/Elbow_R/Wrist_R/Cup_R/RingFinger1_R
+        weight: 1
+      - path: SkinJointGrps/Root_M/BackA_M/BackB_M/Chest_M/Scapula_R/Shoulder_R/Elbow_R/Wrist_R/Cup_R/RingFinger1_R/RingFinger2_R
+        weight: 1
+      - path: SkinJointGrps/Root_M/BackA_M/BackB_M/Chest_M/Scapula_R/Shoulder_R/Elbow_R/Wrist_R/Cup_R/RingFinger1_R/RingFinger2_R/RingFinger3_R
+        weight: 1
+      - path: SkinJointGrps/Root_M/BackA_M/BackB_M/Chest_M/Scapula_R/Shoulder_R/Elbow_R/Wrist_R/Cup_R/RingFinger1_R/RingFinger2_R/RingFinger3_R/RingFinger4_R
+        weight: 1
+      - path: SkinJointGrps/Root_M/BackA_M/BackB_M/Chest_M/Scapula_R/Shoulder_R/Elbow_R/Wrist_R/MiddleFinger1_R
+        weight: 1
+      - path: SkinJointGrps/Root_M/BackA_M/BackB_M/Chest_M/Scapula_R/Shoulder_R/Elbow_R/Wrist_R/MiddleFinger1_R/MiddleFinger2_R
+        weight: 1
+      - path: SkinJointGrps/Root_M/BackA_M/BackB_M/Chest_M/Scapula_R/Shoulder_R/Elbow_R/Wrist_R/MiddleFinger1_R/MiddleFinger2_R/MiddleFinger3_R
+        weight: 1
+      - path: SkinJointGrps/Root_M/BackA_M/BackB_M/Chest_M/Scapula_R/Shoulder_R/Elbow_R/Wrist_R/MiddleFinger1_R/MiddleFinger2_R/MiddleFinger3_R/MiddleFinger4_R
+        weight: 1
+      - path: SkinJointGrps/Root_M/BackA_M/BackB_M/Chest_M/Scapula_R/Shoulder_R/Elbow_R/Wrist_R/ThumbFinger1_R
+        weight: 1
+      - path: SkinJointGrps/Root_M/BackA_M/BackB_M/Chest_M/Scapula_R/Shoulder_R/Elbow_R/Wrist_R/ThumbFinger1_R/ThumbFinger2_R
+        weight: 1
+      - path: SkinJointGrps/Root_M/BackA_M/BackB_M/Chest_M/Scapula_R/Shoulder_R/Elbow_R/Wrist_R/ThumbFinger1_R/ThumbFinger2_R/ThumbFinger3_R
+        weight: 1
+      - path: SkinJointGrps/Root_M/BackA_M/BackB_M/Chest_M/Scapula_R/Shoulder_R/Elbow_R/Wrist_R/ThumbFinger1_R/ThumbFinger2_R/ThumbFinger3_R/ThumbFinger4_R
+        weight: 1
+      - path: SkinJointGrps/Root_M/Hip_L
+        weight: 1
+      - path: SkinJointGrps/Root_M/Hip_L/Knee_L
+        weight: 1
+      - path: SkinJointGrps/Root_M/Hip_L/Knee_L/Ankle_L
+        weight: 1
+      - path: SkinJointGrps/Root_M/Hip_L/Knee_L/Ankle_L/MiddleToe1_L
+        weight: 1
+      - path: SkinJointGrps/Root_M/Hip_L/Knee_L/Ankle_L/MiddleToe1_L/BigToe_L
+        weight: 1
+      - path: SkinJointGrps/Root_M/Hip_L/Knee_L/Ankle_L/MiddleToe1_L/MiddleToe2_L
+        weight: 1
+      - path: SkinJointGrps/Root_M/Hip_L/Knee_L/Ankle_L/MiddleToe1_L/PinkyToe_L
+        weight: 1
+      - path: SkinJointGrps/Root_M/Hip_R
+        weight: 1
+      - path: SkinJointGrps/Root_M/Hip_R/Knee_R
+        weight: 1
+      - path: SkinJointGrps/Root_M/Hip_R/Knee_R/Ankle_R
+        weight: 1
+      - path: SkinJointGrps/Root_M/Hip_R/Knee_R/Ankle_R/MiddleToe1_R
+        weight: 1
+      - path: SkinJointGrps/Root_M/Hip_R/Knee_R/Ankle_R/MiddleToe1_R/BigToe_R
+        weight: 1
+      - path: SkinJointGrps/Root_M/Hip_R/Knee_R/Ankle_R/MiddleToe1_R/MiddleToe2_R
+        weight: 1
+      - path: SkinJointGrps/Root_M/Hip_R/Knee_R/Ankle_R/MiddleToe1_R/PinkyToe_R
+        weight: 1
+      - path: XHR_Model
+        weight: 1
+      - path: XHR_Model/body
+        weight: 1
+      - path: XHR_Model/lower_teeth
+        weight: 1
+      - path: XHR_Model/minion_tongue
+        weight: 1
+      - path: XHR_Model/pCube2
+        weight: 1
+      - path: XHR_Model/pCube3
+        weight: 1
+      - path: XHR_Model/pCube4
+        weight: 1
+      - path: XHR_Model/pCube5
+        weight: 1
+      - path: XHR_Model/pCube6
+        weight: 1
+      - path: XHR_Model/pCube7
+        weight: 1
+      - path: XHR_Model/pCube8
+        weight: 1
+      - path: XHR_Model/pCube9
+        weight: 1
+      - path: XHR_Model/pCube10
+        weight: 1
+      - path: XHR_Model/pCube11
+        weight: 1
+      - path: XHR_Model/pCube12
+        weight: 1
+      - path: XHR_Model/pCube13
+        weight: 1
+      - path: XHR_Model/pCube14
+        weight: 1
+      - path: XHR_Model/pCube15
+        weight: 1
+      - path: XHR_Model/pCube16
+        weight: 1
+      - path: XHR_Model/pCube17
+        weight: 1
+      - path: XHR_Model/pCylinder1
+        weight: 1
+      - path: XHR_Model/pCylinder2
+        weight: 1
+      - path: XHR_Model/right_eye
+        weight: 1
+      - path: XHR_Model/right_eye1
+        weight: 1
+      - path: XHR_Model/right_eye_black
+        weight: 1
+      - path: XHR_Model/right_eye_black1
+        weight: 1
+      - path: XHR_Model/right_eye_front
+        weight: 1
+      - path: XHR_Model/right_eye_front1
+        weight: 1
+      - path: XHR_Model/right_eye_iris
+        weight: 1
+      - path: XHR_Model/right_eye_iris1
+        weight: 1
+      - path: XHR_Model/toufa
+        weight: 1
+      - path: XHR_Model/upper_teeth
+        weight: 1
+      - path: XHR_Model/yanjing
+        weight: 1
+      - path: XHR_Model/yanjing/yanjing_MeshPart0
+        weight: 1
+      - path: XHR_Model/yanjing/yanjing_MeshPart1
+        weight: 1
+      - path: XHR_Model/yanpi002
+        weight: 1
+      - path: XHR_Model/yanpi003
+        weight: 1
+      - path: XHR_Model/yanpi004
+        weight: 1
+      - path: XHR_Model/yanpi005
+        weight: 1
+      - path: XHR_Model/yifu
+        weight: 1
+      - path: XHR_Model/youjiao
+        weight: 1
+      - path: XHR_Model/youshou
+        weight: 1
+      - path: XHR_Model/zuojiao
+        weight: 1
+      - path: XHR_Model/zuoshou
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: .00999999978
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  additionalBone: 0
+  userData: 
