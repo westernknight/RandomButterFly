@@ -35,7 +35,8 @@ public class ButterFlyState : FSMState
     {
 
         gameProcess.butterFlyBkImage.gameObject.SetActive(true);
-        gameProcess.butterFly.gameObject.SetActive(true);
+        gameProcess.lenovoCumputer.gameObject.SetActive(true);
+        //gameProcess.butterFly.gameObject.SetActive(true);
 
 
         {
@@ -50,19 +51,39 @@ public class ButterFlyState : FSMState
                 c.a = v;
                 gameProcess.butterFlyBkImage.color = c;
             });
+
+        gameProcess.lenovoCumputer.transform.position = new Vector3(5.69f, gameProcess.lenovoCumputer.transform.position.y, gameProcess.lenovoCumputer.transform.position.z);
+        LeanTween.value(gameProcess.lenovoCumputer, 2.4f, -7.62f, 0.5f).setOnUpdate(
+            (float v) =>
+            {
+                Vector3 vec = gameProcess.lenovoCumputer.transform.position;
+                vec.x = v;
+                gameProcess.lenovoCumputer.transform.position = vec;
+            }).setOnComplete(() => 
+            {
+                gameProcess.GetComponent<ButterFlyController>().Play();
+
+            });
+
+        mono.StartCoroutine(test());
     }
-  
+  IEnumerator test()
+    {
+        yield return new WaitForSeconds(5);
+        isCatchOneButterfly = true;
+    }
     public override void DoBeforeLeaving()
     {
         isCatchOneButterfly = false;
         initBk = false;
+         
         gameProcess.lenovoCumputer.gameObject.SetActive(false);
         gameProcess.cursor.gameObject.SetActive(false);
         isTouching = false;
         touchingTime = 0;
 
         gameProcess.butterFly.gameObject.SetActive(false);
-
+        gameProcess.GetComponent<ButterFlyController>().Stop();
 
 
 
@@ -93,23 +114,26 @@ public class ButterFlyState : FSMState
 
     public override void Act(GameObject player, GameObject npc)
     {
-        KinectPlayerAnalyst kinect = KinectPlayerAnalyst.instance;
-        Int64 userID = kinect.GetPrimaryUserID();
-    
-        if (kinect.GetRightHandPosition(userID)!=Vector3.zero)
-        {
-            Vector3 handPos = kinect.GetRightHandPosition(userID);
-            float cursorX = handPos.x / 0.5f * Screen.width/2;
-            float cursorY = (handPos.y-1.3f) / 0.3f * Screen.height/2;
-            gameProcess.cursor.gameObject.GetComponent<RectTransform>().localPosition = new Vector3(cursorX, cursorY, -20);
-            gameProcess.cursor.gameObject.SetActive(true);
-            
-        }
-        else
-        {
-            gameProcess.cursor.gameObject.SetActive(false);
-        }
-        CheckTouch();
+
+
+
+//         KinectPlayerAnalyst kinect = KinectPlayerAnalyst.instance;
+//         Int64 userID = kinect.GetPrimaryUserID();
+//     
+//         if (kinect.GetRightHandPosition(userID)!=Vector3.zero)
+//         {
+//             Vector3 handPos = kinect.GetRightHandPosition(userID);
+//             float cursorX = handPos.x / 0.5f * Screen.width/2;
+//             float cursorY = (handPos.y-1.3f) / 0.3f * Screen.height/2;
+//             gameProcess.cursor.gameObject.GetComponent<RectTransform>().localPosition = new Vector3(cursorX, cursorY, -20);
+//             gameProcess.cursor.gameObject.SetActive(true);
+//             
+//         }
+//        else
+//         {
+//             gameProcess.cursor.gameObject.SetActive(false);
+//         }
+//         CheckTouch();
 
 
     }

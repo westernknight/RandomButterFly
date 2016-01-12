@@ -95,6 +95,8 @@ public class ModelControlState : FSMState
         }
         KinectPlayerAnalyst.instance.addPlayer -= AddUser;
         KinectPlayerAnalyst.instance.removePlayer -= RemoveUser;
+
+        
     }
     void AddStateAnimation()
     {
@@ -109,6 +111,7 @@ public class ModelControlState : FSMState
     {
         if (gameProcess.timeText.isTimeOut)
         {
+            
             gameProcess.SetTransition(StateID.PlayerTakePicture);
         }
     }

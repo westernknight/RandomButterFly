@@ -68,6 +68,7 @@ public class GameProcess : MonoBehaviour
     Texture butterflyStateBk;
 
     bool isShottingThreadRunning = false;
+    public Vector3 floorPosition;
 
     public TimeCounter timeText;
     public Text pictureNameText;
@@ -137,7 +138,7 @@ public class GameProcess : MonoBehaviour
         }
         Debug.Log(LitJson.JsonMapper.ToJson(config));
 
-
+        floorPosition = Utility.StringToVector3(config.model1Position);
 
         InitParam();
 

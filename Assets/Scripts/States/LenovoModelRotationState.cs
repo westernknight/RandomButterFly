@@ -30,6 +30,7 @@ public class LenovoModelRotationState : FSMState
         //AddStateAnimation;
         gameProcess.lenovoBkImage.gameObject.SetActive(true);
         gameProcess.lenovoCumputer.gameObject.SetActive(true);
+        gameProcess.lenovoCumputer.transform.position = new Vector3(5.69f, gameProcess.lenovoCumputer.transform.position.y, gameProcess.lenovoCumputer.transform.position.z);
 
         {
             Color c = gameProcess.lenovoBkImage.color;
@@ -64,9 +65,12 @@ public class LenovoModelRotationState : FSMState
                 gameProcess.lenovoBkImage.color = c;
             }).setOnComplete(() =>
             {
+
+
                 Color c = gameProcess.lenovoBkImage.color;
                 c.a = 1;
                 //结束后自动随机下一张
+   
                 mono.StartCoroutine(gameProcess.LoadATexture(gameProcess.config.lenovoBKImagePath, gameProcess.lenovoBkImage));
                 gameProcess.lenovoBkImage.gameObject.SetActive(false);
             });

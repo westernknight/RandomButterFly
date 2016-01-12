@@ -28,6 +28,8 @@ public class PlayerTakePictureState : FSMState
         
         picName = gameProcess.config.taskCount + "," + UnityEngine.Random.Range(0, 10) + ".png";
         gameProcess.pictureNameText.text = picName;
+
+        gameProcess.playerModels[0].SetActive(true);
     }
 
     public override void DoBeforeLeaving()
@@ -63,13 +65,14 @@ public class PlayerTakePictureState : FSMState
            // gameProcess.SetTransition(StateID.LenovoModelRotation);
         }
     }
-  
+
     public override void Act(GameObject player, GameObject npc)
     {
 
         if (gameProcess.timeText.isTimeOut && isShot == false)
         {
             isShot = true;
+
             SavePicture();
         }
         if (isShot==false)

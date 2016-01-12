@@ -52,6 +52,15 @@ public class ParticleController : MonoBehaviour
         go.SetActive(false);
     }
     int debug = 0;
+
+    public void Clean()
+    {
+        for (int i = 0; i < 1000; i++)
+        {
+          
+                particlePool[i].SetActive(false);
+        }
+    }
     // Update is called once per frame
     void Update()
     {

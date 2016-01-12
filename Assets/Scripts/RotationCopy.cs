@@ -45,13 +45,13 @@ public class RotationCopy : MonoBehaviour
         if (t != null)
         {
             reference.Add(t);
-            model.Add(null);
+            //model.Add(null);
         }
     }
     public void FillReference_Editor()
     {
         reference.Clear();
-        model.Clear();
+        //model.Clear();
         AddReference("joint_HipLT");
         AddReference("joint_KneeLT");
         AddReference("joint_FootLT");
@@ -143,7 +143,11 @@ public class RotationCopy : MonoBehaviour
         if (leftPoint!=null && rightPoint !=null)
         {
             float footOffset = leftPoint.position.y < rightPoint.position.y ? leftPoint.position.y : rightPoint.position.y;
-            transform.position = new Vector3(transform.position.x, -footOffset, transform.position.z);//y
+
+            footOffset = transform.position.y - footOffset;
+
+
+            transform.position = new Vector3(transform.position.x,  GameProcess.instance.floorPosition.y+footOffset, transform.position.z);//y
 
 
 
