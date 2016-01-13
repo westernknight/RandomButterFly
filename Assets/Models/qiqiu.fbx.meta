@@ -1,0 +1,125 @@
+fileFormatVersion: 2
+guid: d38107e1812b771429c7fb4c89efe618
+ModelImporter:
+  serializedVersion: 16
+  fileIDToRecycleName:
+    100000: Cylinder002
+    100002: DeformationSystem
+    100004: Line002
+    100006: //RootNode
+    100008: qiqiu_grp
+    100010: qiqiu_joint10_M
+    100012: qiqiu_joint11_M
+    100014: qiqiu_joint12_M
+    100016: qiqiu_joint13_M
+    100018: qiqiu_joint14_M
+    100020: qiqiu_joint15_M
+    100022: qiqiu_joint16_M
+    100024: qiqiu_joint17_M
+    100026: qiqiu_joint18_M
+    100028: qiqiu_joint19_M
+    100030: qiqiu_joint1_M
+    100032: qiqiu_joint20_M
+    100034: qiqiu_joint21_M
+    100036: qiqiu_joint22_M
+    100038: qiqiu_joint2_M
+    100040: qiqiu_joint3_M
+    100042: qiqiu_joint4_M
+    100044: qiqiu_joint5_M
+    100046: qiqiu_joint6_M
+    100048: qiqiu_joint7_M
+    100050: qiqiu_joint8_M
+    100052: qiqiu_joint9_M
+    100054: Root_M
+    100056: Sphere002
+    400000: Cylinder002
+    400002: DeformationSystem
+    400004: Line002
+    400006: //RootNode
+    400008: qiqiu_grp
+    400010: qiqiu_joint10_M
+    400012: qiqiu_joint11_M
+    400014: qiqiu_joint12_M
+    400016: qiqiu_joint13_M
+    400018: qiqiu_joint14_M
+    400020: qiqiu_joint15_M
+    400022: qiqiu_joint16_M
+    400024: qiqiu_joint17_M
+    400026: qiqiu_joint18_M
+    400028: qiqiu_joint19_M
+    400030: qiqiu_joint1_M
+    400032: qiqiu_joint20_M
+    400034: qiqiu_joint21_M
+    400036: qiqiu_joint22_M
+    400038: qiqiu_joint2_M
+    400040: qiqiu_joint3_M
+    400042: qiqiu_joint4_M
+    400044: qiqiu_joint5_M
+    400046: qiqiu_joint6_M
+    400048: qiqiu_joint7_M
+    400050: qiqiu_joint8_M
+    400052: qiqiu_joint9_M
+    400054: Root_M
+    400056: Sphere002
+    4300000: Cylinder002
+    4300002: Line002
+    4300004: Sphere002
+    7400000: Take 001
+    9500000: //RootNode
+    13700000: Cylinder002
+    13700002: Line002
+    13700004: Sphere002
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: .00999999978
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  additionalBone: 0
+  userData: 
