@@ -65,6 +65,8 @@ public class GameProcess : MonoBehaviour
 
     public Text msgText;
 
+    public GameObject butterflyPrefab;
+
     Texture butterflyStateBk;
 
     bool isShottingThreadRunning = false;
@@ -144,9 +146,10 @@ public class GameProcess : MonoBehaviour
         floorPosition = Utility.StringToVector3(config.model1Position);
 
         InitParam();
-
-        StartCoroutine(LoadATexture(config.lenovoBKImagePath, lenovoBkImage));
-        StartCoroutine(LoadATexture(config.butterFlyBKImagePath, butterFlyBkImage));
+        //设置地面
+        Vector3 pos = Utility.StringToVector3(config.model1Position);
+        GameObject.Find("TransparentFloor").transform.position = new Vector3(0, pos.y, 0);
+       
         StartCoroutine(WaitForKinectReady());
 
     }
@@ -260,6 +263,8 @@ public class GameProcess : MonoBehaviour
         }
         Debug.Log("ShotToImage");
         //CapturePicture();
+
+
         MakeFSM();
     }
     public void SetTransition(StateID t) { fsm.PerformTransition(t); }
@@ -306,13 +311,12 @@ public class GameProcess : MonoBehaviour
 
 
         fsm = new FSMSystem();
-        fsm.AddState(butterFlyState);
         fsm.AddState(lenovoModelRotationState);
+        fsm.AddState(modelControlState);
+        fsm.AddState(butterFlyState);
+        
         fsm.AddState(takePictureState);
 
-        fsm.AddState(modelControlState);
-
-        
         fsm.AddState(adjustmentState);
 
 
@@ -320,7 +324,8 @@ public class GameProcess : MonoBehaviour
 
     }
 
-    public IEnumerator LoadATexture(string path, Image image)
+   
+    public IEnumerator LoadARandomTexture(string path, Image image)
     {
         Debug.Log("LoadATexture path:" + path);
         List<string> imageFileList = new List<string>();

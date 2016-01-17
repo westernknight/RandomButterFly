@@ -85,7 +85,7 @@ public class ParticleController : MonoBehaviour
     void Update()
     {
        
-        playbackTime += Time.deltaTime;
+        
 
         for (int i = 0; i < particles.Count; i++)
         {
@@ -104,6 +104,7 @@ public class ParticleController : MonoBehaviour
         {
             return;
         }
+        playbackTime += Time.deltaTime;
         if (playbackTime > 1/rate && butterflyPrefab != null )
         {
             GameObject go = Initantiate();

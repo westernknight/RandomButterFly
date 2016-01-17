@@ -31,14 +31,12 @@ public class LenovoModelRotationState : FSMState
         //AddStateAnimation;
         //gameProcess.lenovoBkImage.gameObject.SetActive(true);
         gameProcess.lenovoCumputer.gameObject.SetActive(true);
-        gameProcess.lenovoCumputer.transform.position = new Vector3(5.69f, gameProcess.lenovoCumputer.transform.position.y, gameProcess.lenovoCumputer.transform.position.z);
-
-
-        gameProcess.lenovoCumputer.transform.position = new Vector3(6.31f, -0.72f, 0);
+   
+        gameProcess.lenovoCumputer.transform.position = new Vector3(36.31f, -0.72f, 0);
         gameProcess.lenovoCumputer.transform.rotation = Quaternion.Euler(21.34876f, 204.3775f, 0);
 
 
- 
+        LeanTween.value(mono.gameObject, 36, 6.31f, 3).setOnUpdate((float v) => { gameProcess.lenovoCumputer.transform.position = new Vector3(v, -0.72f, 0); });
     
         playAnim = true;
         mono.StartCoroutine(PlayComputerAnim());
@@ -52,19 +50,6 @@ public class LenovoModelRotationState : FSMState
         
         gameProcess.lenovoCumputer.gameObject.SetActive(false);
 
-
-        LeanTween.value(gameProcess.lenovoBkImage.gameObject, 1, 0, 0.5f).setOnUpdate(
-            (float v) => 
-            {
-                Color c = gameProcess.lenovoBkImage.color;
-                c.a = v;
-                gameProcess.lenovoBkImage.color = c;
-            }).setOnComplete(() =>
-            {
-
-
-           
-            });
 
        
     }
@@ -99,7 +84,7 @@ public class LenovoModelRotationState : FSMState
     {
         if (KinectPlayerAnalyst.instance.GetUsersCount() > 0 && lenovoModelShowTime > gameProcess.config.playModelTime)
         {
-            //gameProcess.SetTransition(StateID.ButterFly);
+            playAnim = false;
         }
         if (Input.GetKeyDown(KeyCode.F2))
         {

@@ -18,7 +18,9 @@ public class GlobalStructure
     public int touchButterflyTime = 3;
 
     public double playModelTime = 8;
+    public double modelControlTime = 10;
     public double capturePhotoTime = 5;
+
 
     public string model1Position="0,0,0";
     public string model2Position = "0,0,0";

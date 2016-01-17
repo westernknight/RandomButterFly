@@ -14,6 +14,7 @@ public class ButterFlyState : FSMState
     public bool isTouching = false;
     public float touchingTime = 0;
     private CoordinateMapper coordinateMapper = null;
+    bool canTouch = false;
     public ButterFlyState(MonoBehaviour mono)
     {
         stateID = StateID.ButterFly;
@@ -33,7 +34,7 @@ public class ButterFlyState : FSMState
     }
     public override void DoBeforeEntering()
     {
-
+        canTouch = false;
         //gameProcess.butterFlyBkImage.gameObject.SetActive(true);
         gameProcess.lenovoCumputer.gameObject.SetActive(true);
         //gameProcess.butterFly.gameObject.SetActive(true);
@@ -72,17 +73,17 @@ public class ButterFlyState : FSMState
         butterFlyState = FlyState.emitting;
 
 
-        //mono.StartCoroutine(test());
+        mono.StartCoroutine(WaitForCanTouch());
     }
-    IEnumerator test()
+    IEnumerator WaitForCanTouch()
     {
         yield return new WaitForSeconds(5);
-        isCatchOneButterfly = true;
+        canTouch = true;
     }
     public override void DoBeforeLeaving()
     {
         isCatchOneButterfly = false;
-
+        gameProcess.lenovoCumputer.gameObject.SetActive(false);
 
     }
 

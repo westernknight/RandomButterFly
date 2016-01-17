@@ -16,11 +16,11 @@ public class ModelControlState : FSMState
     public float secondElapse = 0;
     public override void DoBeforeEntering()
     {
+        gameProcess.lenovoCumputer.gameObject.SetActive(false);
         Debug.Log("ModelControlState DoBeforeEntering");
 
         //根据model1的Y轴位置决定地板位置
-        Vector3 pos = Utility.StringToVector3(gameProcess.config.model1Position);
-        GameObject.Find("TransparentFloor").transform.position = new Vector3(0, pos.y, 0);
+        
   
         //create models; to prepare
 
@@ -37,6 +37,14 @@ public class ModelControlState : FSMState
             gameProcess.playerModels[1].SetActive(true);
 
         }
+
+
+        for (int i = 0; i < gameProcess.playerModels.Count; i++)
+        {
+            gameProcess.playerModels[i].GetComponent<Animation>().enabled = false;
+            gameProcess.playerModels[i].GetComponent<RotationCopy>().enabled = true;
+        }
+
         for (int i = 0; i < gameProcess.playerModels.Count; i++)
         {
             gameProcess.playerModels[i].transform.position = Utility.StringToVector3(gameProcess.config.model1Position);
@@ -58,6 +66,8 @@ public class ModelControlState : FSMState
         }
         KinectPlayerAnalyst.instance.addPlayer += AddUser;
         KinectPlayerAnalyst.instance.removePlayer += RemoveUser;
+
+        mono.StartCoroutine(ModelControlTime());
 
     }
     void AddUser(Int64 userid)
@@ -107,13 +117,30 @@ public class ModelControlState : FSMState
     {
 
     }
+
+    IEnumerator ModelControlTime()
+    {
+        yield return new WaitForSeconds((float)gameProcess.config.modelControlTime);
+        //to do change butterfly
+        GameObject go = GameObject.Instantiate(gameProcess.butterflyPrefab) as GameObject;
+        go.transform.position = gameProcess.playerModels[0].transform.position;
+        LeanTween.value(mono.gameObject, 0, 1, 5).setOnUpdate((float v) =>
+        {
+
+
+
+            go.transform.position = go.transform.position + go.transform.forward * Time.deltaTime *5;
+            go.transform.rotation = gameProcess.GetComponent<ButterFlyController>().pc1.transform.rotation;
+
+
+        });
+
+
+        gameProcess.SetTransition(StateID.PlayerTakePicture);
+    }
     public override void Reason(GameObject player, GameObject npc)
     {
-        if (gameProcess.timeText.isTimeOut)
-        {
-            
-            gameProcess.SetTransition(StateID.PlayerTakePicture);
-        }
+        
     }
 
     public override void Act(GameObject player, GameObject npc)
