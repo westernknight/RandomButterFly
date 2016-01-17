@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 public class ParticleController : MonoBehaviour
 {
-
+    public static ParticleController instance;
 
 
     List<ParticleButterfly> particles = new List<ParticleButterfly>();
@@ -16,14 +16,22 @@ public class ParticleController : MonoBehaviour
     public float rate = 1;//1miao 1ge 
 
     //shape
-    public float angle = 25;
+    public float sideAngle = 25;
+    public float upAngle = 25;
     public float scale = 1;
     public float playbackSpeed = 1;
     public float playbackTime = 0;
     public GameObject butterflyPrefab;
 
     List<GameObject> particlePool = new List<GameObject>();
+    public List<GameObject> activeParticles = new List<GameObject>();
 
+    bool isStoped = false;
+
+    void Awake()
+    {
+        instance = this;
+    }
     // Use this for initialization
     void Start()
     {
@@ -34,6 +42,7 @@ public class ParticleController : MonoBehaviour
             particlePool[i].transform.localScale = Vector3.one * scale; 
             particlePool[i].SetActive(false);
         }
+        isStoped = true;
     }
     GameObject Initantiate()
     {
@@ -42,6 +51,7 @@ public class ParticleController : MonoBehaviour
             if (particlePool[i].activeSelf == false)
             {
                 particlePool[i].SetActive(true);
+                activeParticles.Add(particlePool[i]);
                 return particlePool[i];
             }
         }
@@ -49,10 +59,20 @@ public class ParticleController : MonoBehaviour
     }
     void Destory(GameObject go)
     {
+        activeParticles.Remove(go);
         go.SetActive(false);
     }
     int debug = 0;
 
+    public void StopEmit()
+    {
+        isStoped = true;
+        playbackTime = 0;
+    }
+    public void PlayEmit()
+    {
+        isStoped = false;
+    }
     public void Clean()
     {
         for (int i = 0; i < 1000; i++)
@@ -64,6 +84,7 @@ public class ParticleController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+       
         playbackTime += Time.deltaTime;
 
         for (int i = 0; i < particles.Count; i++)
@@ -79,7 +100,10 @@ public class ParticleController : MonoBehaviour
                 i--;
             }
         }
-
+        if (isStoped)
+        {
+            return;
+        }
         if (playbackTime > 1/rate && butterflyPrefab != null )
         {
             GameObject go = Initantiate();
@@ -89,7 +113,7 @@ public class ParticleController : MonoBehaviour
                 go.transform.parent = transform;
                 go.transform.position = transform.position;
                 Quaternion q = transform.rotation;
-                go.transform.rotation = Quaternion.Euler(/*transform.forward.x*/ q.eulerAngles.x + Random.Range(-angle, angle), q.eulerAngles.y + Random.Range(-angle, angle), q.eulerAngles.z);
+                go.transform.rotation = Quaternion.Euler(/*transform.forward.x*/ q.eulerAngles.x + Random.Range(-upAngle, upAngle), q.eulerAngles.y + Random.Range(-sideAngle, sideAngle), q.eulerAngles.z);
                 ParticleButterfly pb = go.GetComponent<ParticleButterfly>();
                 pb.life = startLife;
                 particles.Add(go.GetComponent<ParticleButterfly>());

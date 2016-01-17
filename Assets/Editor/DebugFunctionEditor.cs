@@ -89,14 +89,7 @@ public class DebugFunctionEditor : EditorWindow
         {
             Debug.Log("基础人物ID "+KinectPlayerAnalyst.instance.GetPrimaryUserID());
         }
-        if (GUILayout.Button("打印index 0 ID"))
-        {
-            Debug.Log("index 0 ID " + KinectPlayerAnalyst.instance.GetUserIdByIndex(0));
-        }
-        if (GUILayout.Button("打印index 1 ID"))
-        {
-            Debug.Log("index 1 ID " + KinectPlayerAnalyst.instance.GetUserIdByIndex(1));
-        }
+       
         GUILayout.EndScrollView();
     }
 }

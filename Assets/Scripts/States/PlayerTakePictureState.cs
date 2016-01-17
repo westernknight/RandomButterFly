@@ -40,7 +40,7 @@ public class PlayerTakePictureState : FSMState
             gameProcess.playerModels[i].SetActive(false);
         }
         gameProcess.pictureNameText.gameObject.SetActive(false);
-        gameProcess.kinectBkImagePlane.SetActive(false);
+        //gameProcess.kinectBkImagePlane.SetActive(false);
         isShot = false;
     }
     void SavePicture()
@@ -77,7 +77,7 @@ public class PlayerTakePictureState : FSMState
         }
         if (isShot==false)
         {
-            gameProcess.RenderToImage(gameProcess.takePictureImage);
+            gameProcess.RenderToImage();
         }
     }
    

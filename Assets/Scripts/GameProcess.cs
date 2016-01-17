@@ -77,6 +77,9 @@ public class GameProcess : MonoBehaviour
     /// 人物ID对应模型
     /// </summary>
     public Dictionary<Int64, GameObject> modelMap = new Dictionary<Int64, GameObject>();
+
+
+    public GameObject butterFlyCatchedEffect;
     void Awake()
     {
         instance = this;
@@ -165,7 +168,7 @@ public class GameProcess : MonoBehaviour
             sw.Close();
         }
     }
-    public void RenderToImage(Image image)
+    public void RenderToImage()
     {
         if (correctColorImageData == null)
         {
@@ -256,7 +259,7 @@ public class GameProcess : MonoBehaviour
             yield return null;
         }
         Debug.Log("ShotToImage");
-        CapturePicture();
+        //CapturePicture();
         MakeFSM();
     }
     public void SetTransition(StateID t) { fsm.PerformTransition(t); }
@@ -303,12 +306,13 @@ public class GameProcess : MonoBehaviour
 
 
         fsm = new FSMSystem();
+        fsm.AddState(butterFlyState);
         fsm.AddState(lenovoModelRotationState);
         fsm.AddState(takePictureState);
 
         fsm.AddState(modelControlState);
 
-        fsm.AddState(butterFlyState);
+        
         fsm.AddState(adjustmentState);
 
 
@@ -356,6 +360,13 @@ public class GameProcess : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+    
+        
+ 
+       
+
+        
         if (Input.GetKeyDown(KeyCode.Space))
         {
             CapturePicture();
@@ -371,11 +382,7 @@ public class GameProcess : MonoBehaviour
             GameProcess.instance.SetTransition(StateID.LenovoModelRotation);
 
         }
-        if (Input.GetKeyDown(KeyCode.F2))
-        {
-            GameProcess.instance.SetTransition(StateID.ButterFly);
-
-        }
+        
         if (Input.GetKeyDown(KeyCode.F3))
         {
             GameProcess.instance.SetTransition(StateID.ModelControl);
@@ -393,8 +400,54 @@ public class GameProcess : MonoBehaviour
         {
             Debug.Break();
         }
+        #if false
+ if (KinectPlayerAnalyst.instance.GetPrimaryUserID() != 0 && ParticleController.instance)
+        {
+            msgText.text = "detect";
+            Vector2 pos = KinectPlayerAnalyst.instance.GetRightHandPositionV2(KinectPlayerAnalyst.instance.GetPrimaryUserID());
+
+            Rect r = new Rect(0, 0, Screen.width / 10f, Screen.width / 10f);
+            r.center = new Vector2(pos.x, pos.y);
+
+            for (int i = 0; i < ParticleController.instance.activeParticles.Count; i++)
+            {
+                if (r.Contains(Camera.main.WorldToScreenPoint(ParticleController.instance.activeParticles[i].transform.position)))
+                {
+                    msgText.text = "find";
+                    break;
+                }
+                else
+                {
+                    msgText.text = "miss\n" + r + "\n" + Camera.main.WorldToScreenPoint(ParticleController.instance.activeParticles[i].transform.position).ToString(); ;
+                }
+            }
+        }
+        else
+        {
+            msgText.text = "no person detect";
+        }
+ #endif
     }
 
 
 
 }
+#if false
+    if ( KinectPlayerAnalyst.instance.GetPrimaryUserID()!=0)
+        {
+            Vector2 pos = KinectPlayerAnalyst.instance.GetRightHandPositionV2(KinectPlayerAnalyst.instance.GetPrimaryUserID());
+    
+            Rect r = new Rect(0, 0, Screen.width / 10f, Screen.width / 10f);
+            r.center = new Vector2(pos.x, pos.y);
+
+            if (r.Contains(Camera.main.WorldToScreenPoint(GameObject.Find("Cube").transform.position)))
+            {
+                msgText.text = "find";
+            }
+            else
+            {
+                msgText.text = "miss";
+            }
+           
+        }
+#endif

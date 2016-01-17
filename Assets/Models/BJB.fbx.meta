@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: da67fbf95e2a8e247960489ffd14d59b
+guid: 1167c731f00b65a4d8ecf2739fbf700a
 ModelImporter:
   serializedVersion: 16
   fileIDToRecycleName:
@@ -233,7 +233,9 @@ ModelImporter:
     4300134: PR_bijiben_hi:zhou_kou039
     4300136: PR_bijiben_hi:zhou_kou042
     7400000: Take 001
+    7400002: Take 0010
     9500000: //RootNode
+    11100000: //RootNode
     13700000: PR_bijiben_hi:dise
     13700002: PR_bijiben_hi:glass
     13700004: PR_bijiben_hi:jianpan002
@@ -318,7 +320,379 @@ ModelImporter:
     animationScaleError: .5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Take 001
+      takeName: Take 001
+      firstFrame: 1
+      lastFrame: 94
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:dise
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:glass
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:jianpan002
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:jianpan_anjian
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:jianpanwaike
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:jiaotie
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:jiaotie_2
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:jiaotie_4
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:jiaotie_5
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:kouzi_1
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:kouzi_2
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:kouzi_3
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:kouzi_4
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:kouzi_5
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:kouzi_6
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:kouzi_7
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:kouzi_8
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:kouzi_9
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:kouzi_10
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:kouzi_11
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:kouzi_12
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:kouzi_13
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:kouzi_14
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:kouzi_15
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:kouzi_16
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:kouzi_17
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:kouzi_18
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:kouzi_19
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:kouzi_20
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:kouzi_21
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:kouzi_22
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:kouzi_23
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:lenovo
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:pingmu
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:shexiangtou
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:Text001
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:usb_05
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:waikecolor
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:waikecolor_2
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:windows
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:xianshiqiwaike
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:zhou_kou013
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:zhou_kou030
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:zhou_kou031
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:zhou_kou032
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:zhou_kou037
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:zhou_kou038
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:zhou_kou039
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:zhou_kou040
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:zhou_kou041
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:zhou_kou042
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:zhou_kou043
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:zhou_kou044
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:zhou_kou045
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:zhou_kou046
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:zhou_kou047
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:zhou_kou048
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:zhou_kou049
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:zhou_kou050
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:zhou_kou051
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:zhou_kou052
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:zhou_kou053
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:zhou_kou054
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:zhou_kou055
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:zhou_kou056
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:zhouzhuzi_01
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:zhouzhuzi_02
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:zhouzhuzi_03
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:zhouzhuzi__04
+        weight: 1
+      - path: PR_bijiben_hi:DeformationSystem
+        weight: 1
+      - path: PR_bijiben_hi:DeformationSystem/PR_bijiben_hi:joint5_M
+        weight: 1
+      - path: PR_bijiben_hi:DeformationSystem/PR_bijiben_hi:joint5_M/PR_bijiben_hi:Dn_Joint
+        weight: 1
+      - path: PR_bijiben_hi:DeformationSystem/PR_bijiben_hi:joint5_M/PR_bijiben_hi:joint1_M
+        weight: 1
+      - path: PR_bijiben_hi:DeformationSystem/PR_bijiben_hi:joint5_M/PR_bijiben_hi:joint1_M/PR_bijiben_hi:joint2_M
+        weight: 1
+      - path: PR_bijiben_hi:DeformationSystem/PR_bijiben_hi:joint5_M/PR_bijiben_hi:joint1_M/PR_bijiben_hi:joint2_M/PR_bijiben_hi:joint3_M
+        weight: 1
+      - path: PR_bijiben_hi:DeformationSystem/PR_bijiben_hi:joint5_M/PR_bijiben_hi:joint1_M/PR_bijiben_hi:joint2_M/PR_bijiben_hi:joint3_M/PR_bijiben_hi:joint4_M
+        weight: 1
+      - path: PR_bijiben_hi:DeformationSystem/PR_bijiben_hi:joint5_M/PR_bijiben_hi:joint1_M/PR_bijiben_hi:joint2_M/PR_bijiben_hi:joint3_M/PR_bijiben_hi:joint4_M/PR_bijiben_hi:joint6_M
+        weight: 1
+      - path: PR_bijiben_hi:DeformationSystem/PR_bijiben_hi:joint5_M/PR_bijiben_hi:joint1_M/PR_bijiben_hi:joint2_M/PR_bijiben_hi:joint3_M/PR_bijiben_hi:joint4_M/PR_bijiben_hi:joint6_M/PR_bijiben_hi:joint7_M
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Take 0010
+      takeName: Take 001
+      firstFrame: 1
+      lastFrame: 11
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:dise
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:glass
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:jianpan002
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:jianpan_anjian
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:jianpanwaike
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:jiaotie
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:jiaotie_2
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:jiaotie_4
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:jiaotie_5
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:kouzi_1
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:kouzi_2
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:kouzi_3
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:kouzi_4
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:kouzi_5
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:kouzi_6
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:kouzi_7
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:kouzi_8
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:kouzi_9
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:kouzi_10
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:kouzi_11
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:kouzi_12
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:kouzi_13
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:kouzi_14
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:kouzi_15
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:kouzi_16
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:kouzi_17
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:kouzi_18
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:kouzi_19
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:kouzi_20
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:kouzi_21
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:kouzi_22
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:kouzi_23
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:lenovo
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:pingmu
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:shexiangtou
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:Text001
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:usb_05
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:waikecolor
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:waikecolor_2
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:windows
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:xianshiqiwaike
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:zhou_kou013
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:zhou_kou030
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:zhou_kou031
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:zhou_kou032
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:zhou_kou037
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:zhou_kou038
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:zhou_kou039
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:zhou_kou040
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:zhou_kou041
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:zhou_kou042
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:zhou_kou043
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:zhou_kou044
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:zhou_kou045
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:zhou_kou046
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:zhou_kou047
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:zhou_kou048
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:zhou_kou049
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:zhou_kou050
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:zhou_kou051
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:zhou_kou052
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:zhou_kou053
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:zhou_kou054
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:zhou_kou055
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:zhou_kou056
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:zhouzhuzi_01
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:zhouzhuzi_02
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:zhouzhuzi_03
+        weight: 1
+      - path: PR_bijiben_hi:BJB_Model/PR_bijiben_hi:zhouzhuzi__04
+        weight: 1
+      - path: PR_bijiben_hi:DeformationSystem
+        weight: 1
+      - path: PR_bijiben_hi:DeformationSystem/PR_bijiben_hi:joint5_M
+        weight: 1
+      - path: PR_bijiben_hi:DeformationSystem/PR_bijiben_hi:joint5_M/PR_bijiben_hi:Dn_Joint
+        weight: 1
+      - path: PR_bijiben_hi:DeformationSystem/PR_bijiben_hi:joint5_M/PR_bijiben_hi:joint1_M
+        weight: 1
+      - path: PR_bijiben_hi:DeformationSystem/PR_bijiben_hi:joint5_M/PR_bijiben_hi:joint1_M/PR_bijiben_hi:joint2_M
+        weight: 1
+      - path: PR_bijiben_hi:DeformationSystem/PR_bijiben_hi:joint5_M/PR_bijiben_hi:joint1_M/PR_bijiben_hi:joint2_M/PR_bijiben_hi:joint3_M
+        weight: 1
+      - path: PR_bijiben_hi:DeformationSystem/PR_bijiben_hi:joint5_M/PR_bijiben_hi:joint1_M/PR_bijiben_hi:joint2_M/PR_bijiben_hi:joint3_M/PR_bijiben_hi:joint4_M
+        weight: 1
+      - path: PR_bijiben_hi:DeformationSystem/PR_bijiben_hi:joint5_M/PR_bijiben_hi:joint1_M/PR_bijiben_hi:joint2_M/PR_bijiben_hi:joint3_M/PR_bijiben_hi:joint4_M/PR_bijiben_hi:joint6_M
+        weight: 1
+      - path: PR_bijiben_hi:DeformationSystem/PR_bijiben_hi:joint5_M/PR_bijiben_hi:joint1_M/PR_bijiben_hi:joint2_M/PR_bijiben_hi:joint3_M/PR_bijiben_hi:joint4_M/PR_bijiben_hi:joint6_M/PR_bijiben_hi:joint7_M
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
     isReadable: 1
   meshes:
     lODScreenPercentages: []
@@ -354,6 +728,6 @@ ModelImporter:
     feetSpacing: 0
     rootMotionBoneName: 
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 2
+  animationType: 1
   additionalBone: 0
   userData: 

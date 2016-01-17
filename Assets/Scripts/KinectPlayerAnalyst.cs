@@ -550,6 +550,65 @@ public class KinectPlayerAnalyst : MonoBehaviour
         }
         return Vector3.zero;
     }
+
+
+    public Vector2 GetRightHandPositionV2(Int64 userId)
+    {
+        Vector2 posV2 = Vector2.zero;
+        if (dictUserIdToIndex.ContainsKey(userId))
+        {
+            int index = dictUserIdToIndex[userId];
+
+            if (index >= 0 && index < KinectInterop.Constants.BodyCount &&
+                bodyFrame.bodyData[index].bIsTracked != 0)
+            {
+
+                KinectInterop.BodyData bodyData = bodyFrame.bodyData[index];
+
+                Vector3 pos =  bodyData.joint[(int)JointType.HandRight].position;
+
+                float sz = 1.53f / 1.04f * Screen.width / 2;
+                float sy = 0.8f / 0.35f * Screen.height / 2;
+
+                posV2.x = pos.x / pos.z * sz;
+                posV2.y = (pos.y - 1) / pos.z * sy;
+
+                posV2.x += Screen.width / 2;
+                posV2.y += Screen.height / 2;
+            }
+        }
+        return posV2;
+    }
+    public Vector2 GetLeftHandPositionV2(Int64 userId)
+    {
+        Vector2 posV2 = Vector2.zero;
+
+        if (dictUserIdToIndex.ContainsKey(userId))
+        {
+            int index = dictUserIdToIndex[userId];
+
+            if (index >= 0 && index < KinectInterop.Constants.BodyCount &&
+                bodyFrame.bodyData[index].bIsTracked != 0)
+            {
+
+                KinectInterop.BodyData bodyData = bodyFrame.bodyData[index];
+
+                Vector3 pos = bodyData.joint[(int)JointType.HandLeft].position;
+
+                float sz = 1.53f / 1.04f * Screen.width / 2;
+                float sy = 0.8f / 0.35f * Screen.height / 2;
+
+                posV2.x = pos.x / pos.z * sz;
+                posV2.y = (pos.y - 1) / pos.z * sy;
+
+                posV2.x += Screen.width / 2;
+                posV2.y += Screen.height / 2;
+            }
+        }
+
+        return posV2;
+    }
+    
     public Vector3 GetLeftHandPosition(Int64 userId)
     {
         if (dictUserIdToIndex.ContainsKey(userId))

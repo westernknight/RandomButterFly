@@ -26,7 +26,7 @@ public class AdjustmentState : FSMState
 
     public override void DoBeforeLeaving()
     {
-        gameProcess.kinectBkImagePlane.SetActive(false);
+        //gameProcess.kinectBkImagePlane.SetActive(false);
   
         
     }
@@ -41,7 +41,7 @@ public class AdjustmentState : FSMState
     {
 
    
-        gameProcess.RenderToImage(gameProcess.takePictureImage);
+        gameProcess.RenderToImage();
     }
    
 }

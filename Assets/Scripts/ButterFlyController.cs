@@ -7,12 +7,12 @@ public class ButterFlyController : MonoBehaviour {
 
     public void Play()
     {
-        pc1.enabled = true;
+        //pc1.enabled = true;
+        pc1.PlayEmit();
     }
     public void Stop()
     {
-        pc1.Clean();
-        pc1.enabled = false;
+        pc1.StopEmit();
         
     }
 }

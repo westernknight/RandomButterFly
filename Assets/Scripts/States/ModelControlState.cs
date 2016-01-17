@@ -21,7 +21,7 @@ public class ModelControlState : FSMState
         //根据model1的Y轴位置决定地板位置
         Vector3 pos = Utility.StringToVector3(gameProcess.config.model1Position);
         GameObject.Find("TransparentFloor").transform.position = new Vector3(0, pos.y, 0);
-        gameProcess.SetKinectBkShottedPicture();
+  
         //create models; to prepare
 
 
@@ -87,7 +87,7 @@ public class ModelControlState : FSMState
         secondElapse = 0;
         KinectPlayerAnalyst.instance.isCanUpdateAvatar = false;
 
-        gameProcess.kinectBkImagePlane.SetActive(false);
+        //gameProcess.kinectBkImagePlane.SetActive(false);
         gameProcess.timeText.gameObject.SetActive(false);
         for (int i = 0; i < gameProcess.playerModels.Count; i++)
         {
@@ -139,8 +139,8 @@ public class ModelControlState : FSMState
         {
             gameProcess.msgText.text = KinectPlayerAnalyst.instance.GetUserPosition(KinectPlayerAnalyst.instance.GetPrimaryUserID()).ToString();
         }
-        
 
+        gameProcess.RenderToImage();
 
     }
 }

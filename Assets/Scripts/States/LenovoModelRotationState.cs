@@ -8,6 +8,7 @@ public class LenovoModelRotationState : FSMState
 {
     GameProcess gameProcess;
     float lenovoModelShowTime = 0;
+    bool playAnim = true;
     public LenovoModelRotationState(MonoBehaviour mono)
     {
         stateID = StateID.LenovoModelRotation;
@@ -25,29 +26,24 @@ public class LenovoModelRotationState : FSMState
     public override void DoBeforeEntering()
     {
         //获取背景图路径
-        
-  
+
+        gameProcess.kinectBkImagePlane.SetActive(true);
         //AddStateAnimation;
-        gameProcess.lenovoBkImage.gameObject.SetActive(true);
+        //gameProcess.lenovoBkImage.gameObject.SetActive(true);
         gameProcess.lenovoCumputer.gameObject.SetActive(true);
         gameProcess.lenovoCumputer.transform.position = new Vector3(5.69f, gameProcess.lenovoCumputer.transform.position.y, gameProcess.lenovoCumputer.transform.position.z);
 
-        {
-            Color c = gameProcess.lenovoBkImage.color;
-            c.a = 0;
-            gameProcess.lenovoBkImage.color = c;
-        }
-       
 
-        LeanTween.value(gameProcess.lenovoBkImage.gameObject, 0, 1, 0.5f).setOnUpdate(
-            (float v) =>
-            {
-                Color c = gameProcess.lenovoBkImage.color;
-                c.a = v;
-                gameProcess.lenovoBkImage.color = c;
-            });
+        gameProcess.lenovoCumputer.transform.position = new Vector3(6.31f, -0.72f, 0);
+        gameProcess.lenovoCumputer.transform.rotation = Quaternion.Euler(21.34876f, 204.3775f, 0);
+
+
+ 
+    
+        playAnim = true;
+        mono.StartCoroutine(PlayComputerAnim());
     }
-  
+ 
     public override void DoBeforeLeaving()
     {
       
@@ -67,26 +63,48 @@ public class LenovoModelRotationState : FSMState
             {
 
 
-                Color c = gameProcess.lenovoBkImage.color;
-                c.a = 1;
-                //结束后自动随机下一张
-   
-                mono.StartCoroutine(gameProcess.LoadATexture(gameProcess.config.lenovoBKImagePath, gameProcess.lenovoBkImage));
-                gameProcess.lenovoBkImage.gameObject.SetActive(false);
+           
             });
 
        
     }
 
+    IEnumerator PlayComputerAnim()
+    {
+        Animation anim = GameObject.Find("BJB").GetComponent<Animation>();
+        anim["Take 001"].time = 1;
+        while (playAnim)
+        {
+            if (anim.isPlaying == false && playAnim)
+            {
+                anim.Play("Take 001");
+            }
+            yield return null;
+        }
+        while (anim.isPlaying)
+        {
+            yield return null;
+        }
+        anim.Play("Take 0010");
+        while (anim.isPlaying)
+        {
+            yield return null;
+        }
+        GameProcess.instance.SetTransition(StateID.ButterFly);
+    }
+ 
 
 
     public override void Reason(GameObject player, GameObject npc)
     {
         if (KinectPlayerAnalyst.instance.GetUsersCount() > 0 && lenovoModelShowTime > gameProcess.config.playModelTime)
         {
-            gameProcess.SetTransition(StateID.ButterFly);
+            //gameProcess.SetTransition(StateID.ButterFly);
         }
-       
+        if (Input.GetKeyDown(KeyCode.F2))
+        {
+            playAnim = false;
+        }
     }
 
     public override void Act(GameObject player, GameObject npc)
@@ -94,7 +112,7 @@ public class LenovoModelRotationState : FSMState
         lenovoModelShowTime += Time.deltaTime;
 
 
-
+        gameProcess.RenderToImage();
        
     }
 
