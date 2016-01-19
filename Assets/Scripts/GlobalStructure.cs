@@ -30,6 +30,7 @@ public class GlobalStructure
     public double model2Scale = 1;
     public double model3Scale = 1;
 
+    public double butterflySpeed = 3.5f;
     public bool isLenovoStateBkAndButterflyStateBkIsTheSame = false;
 
     public int taskCount = 0;

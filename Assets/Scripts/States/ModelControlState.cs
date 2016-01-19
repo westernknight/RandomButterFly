@@ -16,41 +16,48 @@ public class ModelControlState : FSMState
     public float secondElapse = 0;
     public override void DoBeforeEntering()
     {
+        gameProcess.GetComponent<ButterFlyController>().Stop();
         gameProcess.lenovoCumputer.gameObject.SetActive(false);
         Debug.Log("ModelControlState DoBeforeEntering");
 
         //根据model1的Y轴位置决定地板位置
-        
-  
+
+        gameProcess.choiseModels.Clear();
         //create models; to prepare
 
+        int randomNumber = gameProcess.touchedColor;
+        //randomNumber = 0;
+        for (int i = 0; i < gameProcess.playerModelCount; i++)
+        {
+            gameProcess.choiseModels.Add(gameProcess.playerModelsBinded[randomNumber * 2 + i]);
+        }
 
 
         if (KinectPlayerAnalyst.instance.GetUsersCount() == 1)
         {
-            gameProcess.playerModels[0].SetActive(true);
+            gameProcess.choiseModels[0].SetActive(true);
 
         }
 
         else if (KinectPlayerAnalyst.instance.GetUsersCount() == 2)
         {
-            gameProcess.playerModels[1].SetActive(true);
+            gameProcess.choiseModels[1].SetActive(true);
 
         }
 
 
-        for (int i = 0; i < gameProcess.playerModels.Count; i++)
+        for (int i = 0; i < gameProcess.choiseModels.Count; i++)
         {
-            gameProcess.playerModels[i].GetComponent<Animation>().enabled = false;
-            gameProcess.playerModels[i].GetComponent<RotationCopy>().enabled = true;
+            gameProcess.choiseModels[i].GetComponent<Animation>().enabled = false;
+            gameProcess.choiseModels[i].GetComponent<RotationCopy>().enabled = true;
         }
 
-        for (int i = 0; i < gameProcess.playerModels.Count; i++)
+        for (int i = 0; i < gameProcess.choiseModels.Count; i++)
         {
-            gameProcess.playerModels[i].transform.position = Utility.StringToVector3(gameProcess.config.model1Position);
-                                     
-            gameProcess.playerModels[i].GetComponent<RotationCopy>().InitPosition(gameProcess.playerModels[0].transform.position);
-            gameProcess.playerModels[i].transform.rotation = Quaternion.Euler(0, 180, 0);
+            gameProcess.choiseModels[i].transform.position = Utility.StringToVector3(gameProcess.config.model1Position);
+
+            gameProcess.choiseModels[i].GetComponent<RotationCopy>().InitPosition(gameProcess.playerModelsBinded[0].transform.position);
+            gameProcess.choiseModels[i].transform.rotation = Quaternion.Euler(0, 180, 0);
         }
 
         KinectPlayerAnalyst.instance.isCanUpdateAvatar = true;
@@ -67,14 +74,15 @@ public class ModelControlState : FSMState
         KinectPlayerAnalyst.instance.addPlayer += AddUser;
         KinectPlayerAnalyst.instance.removePlayer += RemoveUser;
 
+        
         mono.StartCoroutine(ModelControlTime());
 
     }
     void AddUser(Int64 userid)
     {
-        for (int i = 0; i < gameProcess.playerModels.Count; i++)
+        for (int i = 0; i < gameProcess.choiseModels.Count; i++)
         {
-            gameProcess.playerModels[i].SetActive(false);
+            gameProcess.choiseModels[i].SetActive(false);
         }
         foreach (KeyValuePair<Int64, GameObject> kvp in gameProcess.modelMap)
         {
@@ -83,9 +91,9 @@ public class ModelControlState : FSMState
     }
     void RemoveUser(Int64 userid)
     {
-        for (int i = 0; i < gameProcess.playerModels.Count; i++)
+        for (int i = 0; i < gameProcess.choiseModels.Count; i++)
         {
-            gameProcess.playerModels[i].SetActive(false);
+            gameProcess.choiseModels[i].SetActive(false);
         }
         foreach (KeyValuePair<Int64, GameObject> kvp in gameProcess.modelMap)
         {
@@ -99,9 +107,9 @@ public class ModelControlState : FSMState
 
         //gameProcess.kinectBkImagePlane.SetActive(false);
         gameProcess.timeText.gameObject.SetActive(false);
-        for (int i = 0; i < gameProcess.playerModels.Count; i++)
+        for (int i = 0; i < gameProcess.choiseModels.Count; i++)
         {
-            gameProcess.playerModels[i].SetActive(false);
+            gameProcess.choiseModels[i].SetActive(false);
         }
         KinectPlayerAnalyst.instance.addPlayer -= AddUser;
         KinectPlayerAnalyst.instance.removePlayer -= RemoveUser;
@@ -122,20 +130,28 @@ public class ModelControlState : FSMState
     {
         yield return new WaitForSeconds((float)gameProcess.config.modelControlTime);
         //to do change butterfly
-        GameObject go = GameObject.Instantiate(gameProcess.butterflyPrefab) as GameObject;
-        go.transform.position = gameProcess.playerModels[0].transform.position;
-        LeanTween.value(mono.gameObject, 0, 1, 5).setOnUpdate((float v) =>
+
+        int playerCount = 0;
+        foreach (KeyValuePair<Int64, GameObject> kvp in gameProcess.modelMap)
         {
+            GameObject go = GameObject.Instantiate(gameProcess.butterflyPrefab) as GameObject;
+            go.transform.position = kvp.Value.transform.position;
+            kvp.Value.SetActive(false);
+            LeanTween.value(mono.gameObject, 0, 1, 5).setOnUpdate((float v) =>
+            {
+                go.transform.position = go.transform.position + go.transform.forward * Time.deltaTime * 5;
+                go.transform.rotation = gameProcess.GetComponent<ButterFlyController>().pc1.transform.rotation;
 
 
-
-            go.transform.position = go.transform.position + go.transform.forward * Time.deltaTime *5;
-            go.transform.rotation = gameProcess.GetComponent<ButterFlyController>().pc1.transform.rotation;
-
-
-        });
-
-
+            });
+            playerCount++;
+        }
+        if (playerCount<1)
+        {
+            playerCount = 1;
+        }
+        gameProcess.takePicturePlayerCount = playerCount;
+        yield return new WaitForSeconds(3);
         gameProcess.SetTransition(StateID.PlayerTakePicture);
     }
     public override void Reason(GameObject player, GameObject npc)
@@ -166,8 +182,8 @@ public class ModelControlState : FSMState
         {
             gameProcess.msgText.text = KinectPlayerAnalyst.instance.GetUserPosition(KinectPlayerAnalyst.instance.GetPrimaryUserID()).ToString();
         }
-
-        gameProcess.RenderToImage();
+        gameProcess.SetImage(gameProcess.texShotted);
+        //gameProcess.RenderToImage();
 
     }
 }

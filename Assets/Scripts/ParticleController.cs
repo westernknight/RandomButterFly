@@ -5,7 +5,7 @@ public class ParticleController : MonoBehaviour
 {
     public static ParticleController instance;
 
-
+    GameObject targetPosAndRotation;
     List<ParticleButterfly> particles = new List<ParticleButterfly>();
 
     public float duration = 5;
@@ -21,8 +21,9 @@ public class ParticleController : MonoBehaviour
     public float scale = 1;
     public float playbackSpeed = 1;
     public float playbackTime = 0;
-    public GameObject butterflyPrefab;
-
+    public List<GameObject> butterflyPrefab = new List<GameObject>();
+  
+    
     List<GameObject> particlePool = new List<GameObject>();
     public List<GameObject> activeParticles = new List<GameObject>();
 
@@ -37,12 +38,15 @@ public class ParticleController : MonoBehaviour
     {
         for (int i = 0; i < 1000; i++)
         {
-            particlePool.Add(GameObject.Instantiate(butterflyPrefab) as GameObject);
+            GameObject go = butterflyPrefab[i % butterflyPrefab.Count];
+            particlePool.Add(GameObject.Instantiate(go) as GameObject);
             particlePool[i].transform.parent = transform;
             particlePool[i].transform.localScale = Vector3.one * scale; 
             particlePool[i].SetActive(false);
         }
+        startSpeed = (float)GameProcess.instance.config.butterflySpeed;
         isStoped = true;
+        targetPosAndRotation = GameObject.Find("ParticleControllerPos");
     }
     GameObject Initantiate()
     {
@@ -84,8 +88,12 @@ public class ParticleController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       
-        
+        //no need to follow
+//         var pos = targetPosAndRotation.transform.position;
+//         var rotation = targetPosAndRotation.transform.rotation;
+// 
+//        transform.position = pos;
+//        transform.rotation = rotation;
 
         for (int i = 0; i < particles.Count; i++)
         {

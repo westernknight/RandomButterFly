@@ -8,7 +8,7 @@ public class ButterFlyController : MonoBehaviour {
     public void Play()
     {
         //pc1.enabled = true;
-        pc1.playbackTime = 10;
+        pc1.playbackTime = 5;
         pc1.PlayEmit();
     }
     public void Stop()

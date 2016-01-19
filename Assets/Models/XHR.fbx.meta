@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 18ba69e7a205f6941a916a394bffcd7f
+guid: 815a1051360a1c040b514a622b84147d
 ModelImporter:
   serializedVersion: 16
   fileIDToRecycleName:
@@ -289,7 +289,6 @@ ModelImporter:
     4300082: CH_xiaohuangren_hi:right_eye_black1
     7400000: Take 001
     9500000: //RootNode
-    11100000: //RootNode
     13700000: CH_xiaohuangren_hi:body
     13700002: CH_xiaohuangren_hi:lower_teeth
     13700004: CH_xiaohuangren_hi:minion_tongue
@@ -383,6 +382,6 @@ ModelImporter:
     feetSpacing: 0
     rootMotionBoneName: 
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 1
+  animationType: 2
   additionalBone: 0
   userData: 

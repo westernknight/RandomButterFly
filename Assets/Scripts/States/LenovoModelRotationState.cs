@@ -3,6 +3,7 @@ using System.Collections;
 using System.IO;
 
 using System.Collections.Generic;
+using System;
 
 public class LenovoModelRotationState : FSMState
 {
@@ -32,16 +33,68 @@ public class LenovoModelRotationState : FSMState
         //gameProcess.lenovoBkImage.gameObject.SetActive(true);
         gameProcess.lenovoCumputer.gameObject.SetActive(true);
    
-        gameProcess.lenovoCumputer.transform.position = new Vector3(36.31f, -0.72f, 0);
-        gameProcess.lenovoCumputer.transform.rotation = Quaternion.Euler(21.34876f, 204.3775f, 0);
+        //gameProcess.lenovoCumputer.transform.position = new Vector3(36.31f, -0.72f, 0);
+        //gameProcess.lenovoCumputer.transform.rotation = Quaternion.Euler(21.34876f, 204.3775f, 0);
 
 
-        LeanTween.value(mono.gameObject, 36, 6.31f, 3).setOnUpdate((float v) => { gameProcess.lenovoCumputer.transform.position = new Vector3(v, -0.72f, 0); });
+       // LeanTween.value(mono.gameObject, 36, 6.31f, 3).setOnUpdate((float v) => { gameProcess.lenovoCumputer.transform.position = new Vector3(v, -0.72f, 0); });
     
         playAnim = true;
-        mono.StartCoroutine(PlayComputerAnim());
+        //mono.StartCoroutine(PlayComputerAnim());
+
+      
+        ComputerRotateComplete();
+
+        //background
+        string path = gameProcess.config.lenovoBKImagePath;
+        Debug.Log("LoadATexture path:" + path);
+        List<string> imageFileList = new List<string>();
+        if (Directory.Exists(path))
+        {
+            string[] filepath = Directory.GetFiles(path, "*.png");
+            imageFileList.AddRange(filepath);
+            filepath = Directory.GetFiles(path, "*.jpg");
+            imageFileList.AddRange(filepath);
+
+            Debug.Log(" length " + imageFileList.Count);
+            for (int i = 0; i < imageFileList.Count; i++)
+            {
+                Debug.Log(imageFileList[i]);
+            }
+        }
+        if (imageFileList.Count > 0)
+        {
+
+            int index = UnityEngine.Random.Range(0, imageFileList.Count);
+            WWW www = new WWW("file:///" + imageFileList[index]);
+            Debug.Log("LoadATexture picture:" + imageFileList[index]);
+            while (www.isDone == false)
+            {
+               
+            }
+            if (www.error == null)
+            {
+                gameProcess.SetImage(www.texture);
+            }
+        }
     }
- 
+
+
+ void ComputerRotateComplete()
+    {
+        LeanTween.value(mono.gameObject, 0, 360, 3).setOnUpdate((float v) => { gameProcess.lenovoCumputer.transform.rotation = Quaternion.Euler(0, 90 - v, 0); }).setOnComplete(() => {
+
+            if (playAnim == true)
+            {
+                ComputerRotateComplete();
+            }
+            else
+            {
+                GameProcess.instance.SetTransition(StateID.ButterFly);
+            }
+            
+        });
+    }
     public override void DoBeforeLeaving()
     {
       
@@ -70,11 +123,7 @@ public class LenovoModelRotationState : FSMState
         {
             yield return null;
         }
-        anim.Play("Take 0010");
-        while (anim.isPlaying)
-        {
-            yield return null;
-        }
+       
         GameProcess.instance.SetTransition(StateID.ButterFly);
     }
  
@@ -97,7 +146,7 @@ public class LenovoModelRotationState : FSMState
         lenovoModelShowTime += Time.deltaTime;
 
 
-        gameProcess.RenderToImage();
+        //gameProcess.RenderToImage();
        
     }
 

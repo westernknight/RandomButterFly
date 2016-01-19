@@ -31,7 +31,7 @@ public class GameProcess : MonoBehaviour
     public AdjustmentState adjustmentState;
 
     Texture2D usersClrTex;
-    Texture2D texShotted;
+    public Texture2D texShotted;
     GameObject player;
 
     public GlobalStructure config = new GlobalStructure();
@@ -56,8 +56,12 @@ public class GameProcess : MonoBehaviour
     /// </summary>
     public Image kinectBkImage;
     public GameObject kinectBkImagePlane;
-    public List<GameObject> playerModels = new List<GameObject>();
+    public List<GameObject> playerModelsBinded = new List<GameObject>();
 
+    public int playerModelCount = 2;
+
+    [HideInInspector]
+    public List<GameObject> choiseModels = new List<GameObject>();
     /// <summary>
     /// scene4
     /// </summary>
@@ -80,8 +84,14 @@ public class GameProcess : MonoBehaviour
     /// </summary>
     public Dictionary<Int64, GameObject> modelMap = new Dictionary<Int64, GameObject>();
 
-
+    /// <summary>
+    /// 由粒子系统创建
+    /// </summary>
     public GameObject butterFlyCatchedEffect;
+    [HideInInspector]
+    public int touchedColor =0;
+    [HideInInspector]
+    public int takePicturePlayerCount = 1;
     void Awake()
     {
         instance = this;
@@ -92,18 +102,18 @@ public class GameProcess : MonoBehaviour
 
        
 
-        for (int i = 0; i < playerModels.Count; i++)
+        for (int i = 0; i < playerModelsBinded.Count; i++)
         {
-            playerModels[i].SetActive(false);
+            playerModelsBinded[i].SetActive(false);
         }
         KinectPlayerAnalyst.instance.addPlayer += (Int64 userid) =>
             {
-                for (int i = 0; i < playerModels.Count; i++)
+                for (int i = 0; i < choiseModels.Count; i++)
                 {
-                    if (playerModels[i].activeSelf == false)
+                    if (choiseModels[i].activeSelf == false)
                     {
 
-                        modelMap.Add(userid, playerModels[i]);                        
+                        modelMap.Add(userid, choiseModels[i]);                        
                         break;
                     }
                 }
@@ -171,6 +181,11 @@ public class GameProcess : MonoBehaviour
             sw.Close();
         }
     }
+    public void SetImage(Texture t)
+    {
+        kinectBkImagePlane.renderer.material.mainTexture = t;
+    }
+    byte[] correctColorImageData;
     public void RenderToImage()
     {
         if (correctColorImageData == null)
@@ -216,13 +231,13 @@ public class GameProcess : MonoBehaviour
 
     }
 
-    byte[] correctColorImageData;
+    byte[] correctColorImageDataCapture;
     public IEnumerator ShotToKinectBkEnumerator()
     {
 
-        if (correctColorImageData == null)
+        if (correctColorImageDataCapture == null)
         {
-            correctColorImageData = new byte[1920 * 1080 * 4];
+            correctColorImageDataCapture = new byte[1920 * 1080 * 4];
         }
         var sensorData = KinectPlayerAnalyst.instance.sensorData;
         isShottingThreadRunning = true;
@@ -239,16 +254,16 @@ public class GameProcess : MonoBehaviour
         {
             for (int x = 0; x < 1920; x++)
             {
-                correctColorImageData[x * 4 + 1920 * 4 * y] = sensorData.colorImage[x * 4 + 1920 * 4 * (1080 - (y + 1))];
-                correctColorImageData[x * 4 + 1 + 1920 * 4 * y] = sensorData.colorImage[x * 4 + 1 + 1920 * 4 * (1080 - (y + 1))];
-                correctColorImageData[x * 4 + 2 + 1920 * 4 * y] = sensorData.colorImage[x * 4 + 2 + 1920 * 4 * (1080 - (y + 1))];
-                correctColorImageData[x * 4 + 3 + 1920 * 4 * y] = sensorData.colorImage[x * 4 + 3 + 1920 * 4 * (1080 - (y + 1))];
+                correctColorImageDataCapture[x * 4 + 1920 * 4 * y] = sensorData.colorImage[x * 4 + 1920 * 4 * (1080 - (y + 1))];
+                correctColorImageDataCapture[x * 4 + 1 + 1920 * 4 * y] = sensorData.colorImage[x * 4 + 1 + 1920 * 4 * (1080 - (y + 1))];
+                correctColorImageDataCapture[x * 4 + 2 + 1920 * 4 * y] = sensorData.colorImage[x * 4 + 2 + 1920 * 4 * (1080 - (y + 1))];
+                correctColorImageDataCapture[x * 4 + 3 + 1920 * 4 * y] = sensorData.colorImage[x * 4 + 3 + 1920 * 4 * (1080 - (y + 1))];
             }
         }
 
-        texShotted.LoadRawTextureData(correctColorImageData);
+        texShotted.LoadRawTextureData(correctColorImageDataCapture);
         texShotted.Apply();
-        kinectBkImage.overrideSprite = Sprite.Create(texShotted, new Rect(0, 0, texShotted.width, texShotted.height), new Vector2(0.5f, 0.5f));
+        //kinectBkImage.overrideSprite = Sprite.Create(texShotted, new Rect(0, 0, texShotted.width, texShotted.height), new Vector2(0.5f, 0.5f));
     }
     public void SetKinectBkShottedPicture()
     {
@@ -262,7 +277,7 @@ public class GameProcess : MonoBehaviour
             yield return null;
         }
         Debug.Log("ShotToImage");
-        //CapturePicture();
+        CapturePicture();
 
 
         MakeFSM();
@@ -313,6 +328,8 @@ public class GameProcess : MonoBehaviour
         fsm = new FSMSystem();
         fsm.AddState(lenovoModelRotationState);
         fsm.AddState(modelControlState);
+       
+     
         fsm.AddState(butterFlyState);
         
         fsm.AddState(takePictureState);

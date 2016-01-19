@@ -35,24 +35,24 @@ public class PlayerTakePictureState : FSMState
         picName = gameProcess.config.taskCount + "." + r_index + ".png";
         gameProcess.pictureNameText.text = picName;
 
-        //to do
-        gameProcess.playerModels[0].SetActive(true);
-        gameProcess.playerModels[0].GetComponent<RotationCopy>().enabled = false;
-        Animation anim = gameProcess.playerModels[0].GetComponent<Animation>();
-        anim.enabled = true;
-        anim.Play("run");
-        anim.wrapMode = WrapMode.Loop;
+      
 
         UIManager.instance.msgText.text = gameProcess.config.taskCount + "." + r_index;
         UIManager.instance.titleText.text = gameProcess.config.taskCount + "." + r_index;
         UIManager.instance.HideEach();
+        UIManager.instance.playerCount = gameProcess.takePicturePlayerCount;
         UIManager.instance.ShowBaseUI();
 
         mono.StartCoroutine(StartCounting());
 
+        TakePictureAnimController.instance.Play();
+
+
     }
     IEnumerator StartCounting()
     {
+        yield return new WaitForSeconds(3);//for model play
+        UIManager.instance.ShowArea();
 
         for (int i = 0; i < gameProcess.config.capturePhotoTime+1; i++)
         {
@@ -65,14 +65,17 @@ public class PlayerTakePictureState : FSMState
     public override void DoBeforeLeaving()
     {
         gameProcess.timeText.gameObject.SetActive(false);
-        for (int i = 0; i < gameProcess.playerModels.Count; i++)
+        for (int i = 0; i < gameProcess.playerModelsBinded.Count; i++)
         {
-            gameProcess.playerModels[i].SetActive(false);
+            gameProcess.playerModelsBinded[i].SetActive(false);
         }
         gameProcess.pictureNameText.gameObject.SetActive(false);
         //gameProcess.kinectBkImagePlane.SetActive(false);
         isShot = false;
         UIManager.instance.HideEach();
+
+        TakePictureAnimController.instance.Hide();
+
     }
     void SavePicture()
     {
@@ -124,9 +127,9 @@ public class PlayerTakePictureState : FSMState
         yield return new WaitForEndOfFrame();
         Application.CaptureScreenshot(Path.Combine(gameProcess.config.savePicturePath, picName), 0);
         UIManager.instance.ShowBaseUI();
-        for (int i = 0; i < gameProcess.playerModels.Count; i++)
+        for (int i = 0; i < gameProcess.playerModelsBinded.Count; i++)
         {
-            Animation anim = gameProcess.playerModels[i].GetComponent<Animation>();
+            Animation anim = gameProcess.playerModelsBinded[i].GetComponent<Animation>();
             anim.Stop();
         }
 

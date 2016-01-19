@@ -16,7 +16,10 @@ public class UIManager : MonoBehaviour
     public Text countText;
 
     public GameObject msgBox;
+
+    public int playerCount = 1;
     public GameObject takePictureArea;
+    public GameObject takePictureArea2;
     public Text msgText;
 
     public GameObject blackMask;
@@ -49,6 +52,7 @@ public class UIManager : MonoBehaviour
         HideBaseUI();
         HideBlack();
         HidePictureUI();
+        HideTakePictureUI();
     }
 
     public void ShowEach()
@@ -70,6 +74,11 @@ public class UIManager : MonoBehaviour
     {
         pictureUI.SetActive(false);
     }
+    public void HideTakePictureUI()
+    {
+        takePictureArea.SetActive(false);
+        takePictureArea2.SetActive(false);
+    }
    public void ShowBaseUI()
     {
         baseUI.SetActive(true);
@@ -77,6 +86,18 @@ public class UIManager : MonoBehaviour
     public void ShowBlack()
     {
         blackMask.SetActive(true);
+    }
+  
+    public void ShowArea()
+    {
+        if (playerCount==1)
+        {
+            takePictureArea.SetActive(true);
+        }
+        else if (playerCount == 2)
+        {
+            takePictureArea2.SetActive(true);
+        }
     }
     public void ShowPictureUI()
     {
@@ -86,7 +107,7 @@ public class UIManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-
+     
     }
 
     // Update is called once per frame
